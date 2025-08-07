@@ -14,6 +14,7 @@ export function UserProfile() {
       </div>
     );
   }
+  
 
   if (!session || !session.user) {
     return null;
