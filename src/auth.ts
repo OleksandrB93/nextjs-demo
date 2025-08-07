@@ -118,7 +118,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, session, trigger }) {
       // Save user info to token when signing in
       if (user) {
         token.id = user.id;
@@ -128,6 +128,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.role = user.role;
         token.createdAt = user.createdAt;
         token.updatedAt = user.updatedAt;
+      }
+
+      if (trigger === "update") {
+        const dbUser = await prisma.user.findUnique({
+          where: { id: token.id as string },
+        });
+
+        if (dbUser) {
+          token.role = dbUser.role;
+        }
       }
       return token;
     },

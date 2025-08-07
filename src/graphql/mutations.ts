@@ -11,6 +11,19 @@ export const CREATE_USER = gql`
   }
 `;
 
+export const CHANGE_USER_ROLE = gql`
+  mutation ChangeUserRole($id: ID!, $role: UserRole!) {
+    changeUserRole(id: $id, role: $role) {
+      id
+      email
+      name
+      role
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
 export const CREATE_POST = gql`
   mutation CreatePost($title: String!, $content: String) {
     createPost(title: $title, content: $content) {

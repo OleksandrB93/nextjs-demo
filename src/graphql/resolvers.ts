@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
+import { UserRole } from "@prisma/client";
 
 // Helper function to get current user from session
 async function getCurrentUser() {
@@ -116,6 +117,15 @@ export const resolvers = {
         include: {
           posts: true,
         },
+      });
+    },
+    changeUserRole: async (
+      _: unknown,
+      { id, role }: { id: string; role: string }
+    ) => {
+      return await prisma.user.update({
+        where: { id: id },
+        data: { role: role as any },
       });
     },
     createPost: async (

@@ -9,32 +9,31 @@ import {
   ShieldCheckIcon,
 } from "@heroicons/react/24/outline";
 import { RoleGuard } from "./RoleGuard";
+import { CHANGE_USER_ROLE } from "@/graphql/mutations";
+import { useMutation } from "@apollo/client";
 
 export function MainProfile() {
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
+  const [changeUserRole] = useMutation(CHANGE_USER_ROLE);
 
   // Function to change user role (demo purposes)
   const changeRole = async (newRole: string) => {
     if (!session?.user?.id) return;
 
     try {
-      const response = await fetch("/api/admin/change-role", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      await changeUserRole({
+        variables: {
+          id: session.user.id,
+          role: newRole,
         },
-        body: JSON.stringify({
-          userId: session.user.id,
-          newRole: newRole,
-        }),
       });
 
-      if (response.ok) {
-        // Refresh the page to show updated role
-        window.location.reload();
-      } else {
-        console.error("Failed to change role");
-      }
+      await update({
+        user: {
+          ...session?.user,
+          role: newRole,
+        },
+      });
     } catch (error) {
       console.error("Error changing role:", error);
     }
