@@ -16,6 +16,7 @@ import {
 export function PostForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [generating, setGenerating] = useState(false);
 
   const [createPost, { loading, error }] = useMutation(CREATE_POST, {
     refetchQueries: [{ query: GET_POSTS }],
@@ -34,6 +35,53 @@ export function PostForm() {
     }
   };
 
+  const handleAiContent = async () => {
+    setGenerating(true);
+
+    try {
+      const res = await fetch("/api/openai", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt: "Generate a post about the topic: " + title,
+        }),
+      });
+
+      const data = await res.json();
+      const generated = data.content?.split("\n\n");
+      if (generated?.length >= 2) {
+        setTitle(generated[0].replace(/^#+\s*/, ""));
+        setContent(generated.slice(1).join("\n\n"));
+      } else {
+        setContent(data.content || "");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setGenerating(false);
+    }
+  };
+
+  const generateWithGemini = async (prompt: string) => {
+    try {
+      const res = await fetch("/api/openai", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt }),
+      });
+      const data = await res.json();
+
+      const generatedText = data.content?.parts?.[0]?.text || "";
+      setContent(generatedText);
+
+      return generatedText;
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setGenerating(false);
+    }
+  };
+
   return (
     <div className="bg-white px-6 rounded-lg shadow-md">
       <Accordion type="single" collapsible>
@@ -43,6 +91,26 @@ export function PostForm() {
           </AccordionTrigger>
           <AccordionContent>
             <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="flex justify-between items-center">
+                <label
+                  htmlFor="title"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Title *
+                </label>
+                <Button
+                  type="button"
+                  onClick={() =>
+                    generateWithGemini(
+                      "Generate a post about the topic: " + title
+                    )
+                  }
+                  disabled={!title || generating}
+                  variant="secondary"
+                >
+                  {generating ? "Generating..." : "Generate with AI"}
+                </Button>
+              </div>
               <div>
                 <label
                   htmlFor="title"
