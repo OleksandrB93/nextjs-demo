@@ -11,8 +11,8 @@ export function UsersList() {
   if (error) return <div className="text-red-600">Error: {error.message}</div>;
 
   return (
-    <div className="bg-gray-900 p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4 text-gray-100">Users</h2>
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-4">Users</h2>
       {data?.users?.length === 0 ? (
         <p className="text-gray-500">No users found</p>
       ) : (
@@ -24,11 +24,11 @@ export function UsersList() {
             >
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-semibold text-lg text-gray-100">
+                  <h3 className="font-semibold text-lg">
                     {user.name || "No name"}
                   </h3>
-                  <p className="text-gray-400">{user.email}</p>
-                  <p className="text-sm text-gray-400">
+                  <p className="text-gray-600">{user.email}</p>
+                  <p className="text-sm text-gray-500">
                     Created:{" "}
                     {new Date(user.createdAt).toLocaleDateString("uk-UA")}
                   </p>
@@ -41,7 +41,7 @@ export function UsersList() {
               </div>
               {user.posts?.length > 0 && (
                 <div className="mt-3">
-                  <h4 className="text-sm font-medium text-gray-100 mb-2">
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">
                     Posts:
                   </h4>
                   <div className="space-y-2">
@@ -50,10 +50,8 @@ export function UsersList() {
                         key={post.id}
                         className="text-sm bg-gray-50 p-2 rounded"
                       >
-                        <p className="font-bold text-gray-800">
-                          {post.title}
-                        </p>
-                        <p className="text-gray-700 text-xs">
+                        <p className="font-medium">{post.title}</p>
+                        <p className="text-gray-600 text-xs">
                           {post.published ? "Published" : "Draft"}
                         </p>
                       </div>

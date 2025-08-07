@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { CREATE_USER } from "@/graphql/mutations";
 import { GET_USERS } from "@/graphql/queries";
+import { Button } from "./ui/button";
 
 export function UserForm() {
   const [email, setEmail] = useState("");
@@ -27,13 +28,13 @@ export function UserForm() {
   };
 
   return (
-    <div className="bg-gray-900 p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4 text-gray-100">Create user</h2>
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-4">Create user</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-100"
+            className="block text-sm font-medium text-gray-700"
           >
             Email *
           </label>
@@ -49,7 +50,7 @@ export function UserForm() {
         <div>
           <label
             htmlFor="name"
-            className="block text-sm font-medium text-gray-100"
+            className="block text-sm font-medium text-gray-700"
           >
             Name
           </label>
@@ -64,13 +65,9 @@ export function UserForm() {
         {error && (
           <div className="text-red-600 text-sm">Error: {error.message}</div>
         )}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
-        >
+        <Button type="submit" disabled={loading}>
           {loading ? "Creating..." : "Create user"}
-        </button>
+        </Button>
       </form>
     </div>
   );

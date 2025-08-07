@@ -6,6 +6,15 @@ import { CREATE_POST } from "@/graphql/mutations";
 import { GET_POSTS, GET_USERS } from "@/graphql/queries";
 import { User } from "@/types/graphql";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Button } from "./ui/button";
+
 export function PostForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -32,13 +41,13 @@ export function PostForm() {
   };
 
   return (
-    <div className="bg-gray-900 p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4 text-gray-100">Create post</h2>
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-4">Create post</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label
             htmlFor="title"
-            className="block text-sm font-medium text-gray-100"
+            className="block text-sm font-medium text-gray-700"
           >
             Title *
           </label>
@@ -54,7 +63,7 @@ export function PostForm() {
         <div>
           <label
             htmlFor="content"
-            className="block text-sm font-medium text-gray-100"
+            className="block text-sm font-medium text-gray-700"
           >
             Content
           </label>
@@ -69,37 +78,33 @@ export function PostForm() {
         <div>
           <label
             htmlFor="author"
-            className="block text-sm font-medium text-gray-100"
+            className="block text-sm font-medium text-gray-700"
           >
             Author *
           </label>
-          <select
-            id="author"
-            value={authorId}
-            onChange={(e) => setAuthorId(e.target.value)}
-            required
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-100"
-          >
-            <option value="" className="text-gray-900 hover:text-gray-100">
-              Select author
-            </option>
-            {usersData?.users?.map((user: User) => (
-              <option key={user.id} value={user.id}>
-                {user.name || user.email}
-              </option>
-            ))}
-          </select>
+          <Select value={authorId} onValueChange={setAuthorId} required>
+            <SelectTrigger
+              id="author"
+              className="w-full px-3 py-2 rounded-md shadow-sm"
+            >
+              <SelectValue placeholder="Select author" />
+            </SelectTrigger>
+            <SelectContent className=" text-gray-900">
+              {/* <SelectItem value={""}>Select author</SelectItem> */}
+              {usersData?.users?.map((user: User) => (
+                <SelectItem key={user?.id} value={user?.id}>
+                  {user.name || user.email}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         {error && (
           <div className="text-red-600 text-sm">Error: {error.message}</div>
         )}
-        <button
-          type="submit"
-          disabled={loading || usersLoading}
-          className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50"
-        >
+        <Button type="submit" disabled={loading || usersLoading}>
           {loading ? "Creating..." : "Create post"}
-        </button>
+        </Button>
       </form>
     </div>
   );
