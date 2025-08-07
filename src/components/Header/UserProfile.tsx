@@ -2,6 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { SignOut } from "./SignOut";
+import Image from "next/image";
 
 export function UserProfile() {
   const { data: session, status } = useSession();
@@ -14,7 +15,6 @@ export function UserProfile() {
       </div>
     );
   }
-  
 
   if (!session || !session.user) {
     return null;
@@ -23,13 +23,15 @@ export function UserProfile() {
   return (
     <div className="flex items-center space-x-3">
       {session.user.image && (
-        <img
+        <Image
+          width={32}
+          height={32}
           src={session.user.image}
           alt={session.user.name || "User"}
-          className="w-8 h-8 rounded-full border border-gray-300"
+          className="w-8 h-8 rounded-full border border-border"
         />
       )}
-      <span className="text-gray-700 font-medium text-sm">
+      <span className="text-foreground font-medium text-sm">
         {session.user.name || session.user.email}
       </span>
       <SignOut />

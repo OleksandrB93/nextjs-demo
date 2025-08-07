@@ -12,6 +12,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import AIIcon from "./Icons/AiIcon";
 
 export function PostForm() {
   const [title, setTitle] = useState("");
@@ -83,7 +84,7 @@ export function PostForm() {
   };
 
   return (
-    <div className="bg-white px-6 rounded-lg shadow-md">
+    <div className="bg-background px-6 rounded-lg shadow-md border border-border">
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger>
@@ -94,7 +95,7 @@ export function PostForm() {
               <div className="flex justify-between items-center">
                 <label
                   htmlFor="title"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-foreground"
                 >
                   Title *
                 </label>
@@ -108,13 +109,16 @@ export function PostForm() {
                   disabled={!title || generating}
                   variant="secondary"
                 >
-                  {generating ? "Generating..." : "Generate with AI"}
+                  <div className="flex items-center gap-2">
+                    <AIIcon />{" "}
+                    {generating ? "Generating..." : "Generate with AI"}
+                  </div>
                 </Button>
               </div>
               <div>
                 <label
                   htmlFor="title"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-foreground"
                 >
                   Title *
                 </label>
@@ -124,13 +128,13 @@ export function PostForm() {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   required
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
               <div>
                 <label
                   htmlFor="content"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-foreground"
                 >
                   Content
                 </label>
@@ -139,7 +143,7 @@ export function PostForm() {
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   rows={4}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
               {error && (

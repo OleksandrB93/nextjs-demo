@@ -11,7 +11,7 @@ export function UsersList() {
     <RoleGuard
       allowedRoles={["ADMIN"]}
       fallback={
-        <div className="bg-white p-6 rounded-lg shadow-md">
+        <div className="bg-background p-6 rounded-lg shadow-md border border-border">
           <h2 className="text-2xl font-bold mb-4">Users</h2>
           <p className="text-red-600">
             Access denied: Admin privileges required
@@ -43,16 +43,16 @@ function AdminUsersList() {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="bg-background p-6 rounded-lg shadow-md border border-border">
       <h2 className="text-2xl font-bold mb-4">All Users (Admin View)</h2>
       {data?.allUsers?.length === 0 ? (
-        <p className="text-gray-500">No users found</p>
+        <p className="text-muted-foreground">No users found</p>
       ) : (
         <div className="space-y-4">
           {data?.allUsers?.map((user: User) => (
             <div
               key={user.id}
-              className="border border-gray-200 rounded-lg p-4"
+              className="border border-border rounded-lg p-4"
             >
               <div className="flex justify-between items-start">
                 <div className="flex items-start space-x-3">
@@ -68,8 +68,8 @@ function AdminUsersList() {
                     <h3 className="font-semibold text-lg">
                       {user.name || "No name"}
                     </h3>
-                    <p className="text-gray-600">{user.email}</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-muted-foreground">{user.email}</p>
+                    <p className="text-sm text-muted-foreground">
                       Created:{" "}
                       {new Date(user.createdAt).toLocaleDateString("uk-UA")}
                     </p>
@@ -84,7 +84,7 @@ function AdminUsersList() {
                     {user.role}
                   </div>
                   <div>
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-background text-foreground">
                       {user.posts?.length || 0} posts
                     </span>
                   </div>
@@ -92,17 +92,17 @@ function AdminUsersList() {
               </div>
               {user.posts?.length > 0 && (
                 <div className="mt-3">
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">
+                  <h4 className="text-sm font-medium text-foreground mb-2">
                     Posts:
                   </h4>
                   <div className="space-y-2">
                     {user.posts.map((post: Post) => (
                       <div
                         key={post.id}
-                        className="text-sm bg-gray-50 p-2 rounded"
+                        className="text-sm bg-background p-2 rounded"
                       >
                         <p className="font-medium">{post.title}</p>
-                        <p className="text-gray-600 text-xs">
+                        <p className="text-muted-foreground text-xs">
                           {post.published ? "Published" : "Draft"}
                         </p>
                       </div>

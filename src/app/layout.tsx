@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+
+import { ThemeProvider } from "@/components/Providers/theme-provider";
 import "./globals.css";
 import { ApolloWrapper } from "@/components/Providers/ApolloWrapper";
 import { NextAuthProvider } from "@/components/Providers/NextAuthProvider";
@@ -25,12 +27,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextAuthProvider>
-          <ApolloWrapper>{children}</ApolloWrapper>
+          <ApolloWrapper>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
+          </ApolloWrapper>
         </NextAuthProvider>
       </body>
     </html>

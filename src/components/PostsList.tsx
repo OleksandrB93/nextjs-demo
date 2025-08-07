@@ -49,26 +49,26 @@ export function PostsList() {
   const posts = data?.posts || [];
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="bg-background p-6 rounded-lg shadow-md border border-border">
       <h2 className="text-2xl font-bold mb-4">
         {isAdmin ? "All Posts (Admin View)" : "My Posts"}
       </h2>
       {posts?.length === 0 ? (
-        <p className="text-gray-500">No posts found</p>
+        <p className="text-muted-foreground">No posts found</p>
       ) : (
         <div className="space-y-4">
           {posts?.map((post: Post) => (
             <div
               key={post.id}
-              className="border border-gray-200 rounded-lg p-4"
+              className="border border-border rounded-lg p-4"
             >
               <div className="flex justify-between items-start">
                 <div className="flex-1">
                   <h3 className="font-semibold text-lg">{post.title}</h3>
                   {post.content && (
-                    <p className="text-gray-600 mt-2">{post.content}</p>
+                    <p className="text-muted-foreground mt-2">{post.content}</p>
                   )}
-                  <div className="mt-3 text-sm text-gray-500">
+                  <div className="mt-3 text-sm text-muted-foreground">
                     <p>Author: {post.author?.name || post.author?.email}</p>
                     <p>
                       Created:{" "}
@@ -83,15 +83,15 @@ export function PostsList() {
                     }
                     className={`px-3 py-1 text-xs rounded-full ${
                       post.published
-                        ? "bg-green-100 text-green-800 hover:bg-green-200"
-                        : "bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
+                        ? "bg-green-500 text-white hover:bg-green-600"
+                        : "bg-yellow-500 text-white hover:bg-yellow-600"
                     }`}
                   >
                     {post.published ? "Published" : "Draft"}
                   </button>
                   <button
                     onClick={() => handleDelete(post.id)}
-                    className="px-3 py-1 text-xs bg-red-100 text-red-800 rounded-full hover:bg-red-200"
+                    className="px-3 py-1 text-xs bg-red-500 text-white rounded-full hover:bg-red-600"
                   >
                     Delete
                   </button>

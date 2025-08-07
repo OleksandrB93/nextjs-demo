@@ -7,14 +7,14 @@ import { MainProfile } from "@/components/MainProfile";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-background">
       <Header />
       <div className="container mx-auto px-4 py-8 pt-20">
         <header className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+          <h1 className="text-4xl font-bold text-foreground mb-2">
             Next.js GraphQL Demo
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-muted-foreground">
             App with GraphQL, Prisma and MongoDB
           </p>
         </header>
@@ -33,7 +33,7 @@ export default function Home() {
           </div>
         </div>
 
-        <footer className="mt-12 text-center text-gray-500">
+        <footer className="mt-12 text-center text-muted-foreground">
           <p>
             GraphQL Playground available at:{" "}
             <a

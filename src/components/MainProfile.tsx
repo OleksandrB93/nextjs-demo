@@ -130,13 +130,13 @@ export function MainProfile() {
   const { user } = session;
 
   return (
-    <div className="max-w-2xl mx-auto bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl overflow-hidden">
+    <div className="max-w-2xl mx-auto bg-background border border-border rounded-2xl shadow-xl overflow-hidden">
       {/* Header with gradient background */}
-      <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 px-8 py-12">
+      <div className="bg-primary px-8 py-12">
         <div className="flex flex-col items-center text-center">
           {/* Profile Image */}
           <div className="relative mb-6">
-            <div className="w-32 h-32 rounded-full bg-white p-1 shadow-lg">
+            <div className="w-32 h-32 rounded-full bg-background p-1 shadow-lg">
               {user.image ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -146,7 +146,7 @@ export function MainProfile() {
                 />
               ) : (
                 <div className="w-full h-full rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                  <span className="text-4xl font-bold text-gray-400">
+                  <span className="text-4xl font-bold text-muted-foreground">
                     {user.name ? user.name[0].toUpperCase() : "?"}
                   </span>
                 </div>
@@ -158,10 +158,12 @@ export function MainProfile() {
           </div>
 
           {/* Name and Email */}
-          <h1 className="text-3xl font-bold text-white mb-2">
+          <h1 className="text-3xl font-bold text-foreground mb-2">
             {user.name || "Welcome User"}
           </h1>
-          <p className="text-blue-100 text-lg font-medium mb-3">{user.email}</p>
+          <p className="text-muted-foreground text-lg font-medium mb-3">
+            {user.email}
+          </p>
 
           {/* Role Badge */}
           <div
@@ -181,23 +183,23 @@ export function MainProfile() {
       <div className="p-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {/* User ID Card */}
-          <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div className="bg-background rounded-xl p-6 shadow-md border border-border">
             <div className="flex items-center mb-3">
               <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
                 <UserIcon className="w-5 h-5 text-blue-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800">User ID</h3>
-                <p className="text-sm text-gray-500">Unique identifier</p>
+                <h3 className="font-semibold text-foreground">User ID</h3>
+                <p className="text-sm text-muted-foreground">Unique identifier</p>
               </div>
             </div>
-            <p className="text-sm font-mono text-gray-600 bg-gray-50 px-3 py-2 rounded-lg">
+            <p className="text-sm font-mono text-muted-foreground bg-gray-50 px-3 py-2 rounded-lg">
               {user.id || "Not available"}
             </p>
           </div>
 
           {/* Role Card */}
-          <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+          <div className="bg-background rounded-xl p-6 shadow-md border border-border">
             <div className="flex items-center mb-3">
               <div
                 className={`w-10 h-10 ${getRoleDisplay(user.role)
@@ -212,8 +214,8 @@ export function MainProfile() {
                 />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800">User Role</h3>
-                <p className="text-sm text-gray-500">Account permissions</p>
+                <h3 className="font-semibold text-foreground">User Role</h3>
+                <p className="text-sm text-muted-foreground">Account permissions</p>
               </div>
             </div>
             <div
@@ -227,37 +229,37 @@ export function MainProfile() {
         </div>
 
         {/* Account Information */}
-        <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100">
-          <h3 className="font-semibold text-gray-800 mb-4 flex items-center">
+        <div className="bg-background rounded-xl p-6 shadow-md border border-border">
+          <h3 className="font-semibold text-foreground mb-4 flex items-center">
             <CalendarIcon className="w-5 h-5 text-purple-600 mr-2" />
             Account Information
           </h3>
 
           <div className="space-y-4">
-            <div className="flex justify-between items-center py-3 border-b border-gray-100">
-              <span className="text-gray-600">Member since</span>
-              <span className="font-medium text-gray-800">
+            <div className="flex justify-between items-center py-3 border-b border-border">
+              <span className="text-muted-foreground">Member since</span>
+              <span className="font-medium text-foreground">
                 {user.createdAt ? formatDate(user.createdAt) : "Unknown"}
               </span>
             </div>
 
-            <div className="flex justify-between items-center py-3 border-b border-gray-100">
-              <span className="text-gray-600">Last updated</span>
-              <span className="font-medium text-gray-800">
+            <div className="flex justify-between items-center py-3 border-b border-border">
+              <span className="text-muted-foreground">Last updated</span>
+              <span className="font-medium text-foreground">
                 {user.updatedAt ? formatDate(user.updatedAt) : "Unknown"}
               </span>
             </div>
 
-            <div className="flex justify-between items-center py-3 border-b border-gray-100">
-              <span className="text-gray-600">Time since joining</span>
-              <span className="font-medium text-gray-800">
+            <div className="flex justify-between items-center py-3 border-b border-border">
+              <span className="text-muted-foreground">Time since joining</span>
+              <span className="font-medium text-foreground">
                 {user.createdAt ? getTimeSince(user.createdAt) : "Unknown"}
               </span>
             </div>
 
             <div className="flex justify-between items-center py-3">
-              <span className="text-gray-600">Account status</span>
-              <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+              <span className="text-muted-foreground">Account status</span>
+              <span className="px-3 py-1  text-green-800 rounded-full text-sm font-medium bg-green-500">
                 Active
               </span>
             </div>
@@ -302,8 +304,8 @@ export function MainProfile() {
             <p className="text-sm text-red-700 mb-4">
               This section is only visible to administrators.
             </p>
-            <div className="bg-white rounded-lg p-4">
-              <p className="text-sm text-gray-600">
+            <div className="bg-background rounded-lg p-4">
+              <p className="text-sm text-muted-foreground">
                 Admin-only features would go here, such as user management,
                 system settings, etc.
               </p>
@@ -322,7 +324,7 @@ export function MainProfile() {
               This section is visible to moderators and administrators.
             </p>
             <div className="bg-white rounded-lg p-4">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-muted-foreground">
                 Moderation tools would go here, such as content management, user
                 warnings, etc.
               </p>
@@ -335,7 +337,7 @@ export function MainProfile() {
           <h3 className="font-semibold text-gray-800 mb-4">
             🚀 Demo: Change Role
           </h3>
-          <p className="text-sm text-gray-600 mb-4">
+          <p className="text-sm text-muted-foreground mb-4">
             Click the buttons below to test different user roles and see how the
             interface changes:
           </p>
