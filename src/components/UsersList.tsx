@@ -7,13 +7,11 @@ import { User, Post } from "@/types/graphql";
 export function UsersList() {
   const { loading, error, data } = useQuery(GET_USERS);
 
-  if (loading)
-    return <div className="text-center py-4">Loading users...</div>;
-  if (error)
-    return <div className="text-red-600">Error: {error.message}</div>;
+  if (loading) return <div className="text-center py-4">Loading users...</div>;
+  if (error) return <div className="text-red-600">Error: {error.message}</div>;
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="bg-gray-900 p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Users</h2>
       {data?.users?.length === 0 ? (
         <p className="text-gray-500">No users found</p>
@@ -26,11 +24,11 @@ export function UsersList() {
             >
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-semibold text-lg">
+                  <h3 className="font-semibold text-lg text-gray-100">
                     {user.name || "No name"}
                   </h3>
-                  <p className="text-gray-600">{user.email}</p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-gray-400">{user.email}</p>
+                  <p className="text-sm text-gray-400">
                     Created:{" "}
                     {new Date(user.createdAt).toLocaleDateString("uk-UA")}
                   </p>
@@ -43,7 +41,7 @@ export function UsersList() {
               </div>
               {user.posts?.length > 0 && (
                 <div className="mt-3">
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">
+                  <h4 className="text-sm font-medium text-gray-100 mb-2">
                     Posts:
                   </h4>
                   <div className="space-y-2">
@@ -52,8 +50,10 @@ export function UsersList() {
                         key={post.id}
                         className="text-sm bg-gray-50 p-2 rounded"
                       >
-                        <p className="font-medium">{post.title}</p>
-                        <p className="text-gray-600 text-xs">
+                        <p className="font-bold text-gray-800">
+                          {post.title}
+                        </p>
+                        <p className="text-gray-700 text-xs">
                           {post.published ? "Published" : "Draft"}
                         </p>
                       </div>

@@ -44,7 +44,7 @@ export function PostsList() {
     return <div className="text-red-600">Error: {error.message}</div>;
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="bg-gray-900 p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Posts</h2>
       {data?.posts?.length === 0 ? (
         <p className="text-gray-500">No posts found</p>
@@ -57,11 +57,13 @@ export function PostsList() {
             >
               <div className="flex justify-between items-start">
                 <div className="flex-1">
-                  <h3 className="font-semibold text-lg">{post.title}</h3>
+                  <h3 className="font-semibold text-lg text-gray-100">
+                    {post.title}
+                  </h3>
                   {post.content && (
-                    <p className="text-gray-600 mt-2">{post.content}</p>
+                    <p className="text-gray-400 mt-2">{post.content}</p>
                   )}
-                  <div className="mt-3 text-sm text-gray-500">
+                  <div className="mt-3 text-sm text-gray-400">
                     <p>Author: {post.author?.name || post.author?.email}</p>
                     <p>
                       Created:{" "}

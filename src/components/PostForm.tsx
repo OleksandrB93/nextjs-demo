@@ -32,13 +32,13 @@ export function PostForm() {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="bg-gray-900 p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Create post</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label
             htmlFor="title"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-gray-100"
           >
             Title *
           </label>
@@ -54,7 +54,7 @@ export function PostForm() {
         <div>
           <label
             htmlFor="content"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-gray-100"
           >
             Content
           </label>
@@ -69,7 +69,7 @@ export function PostForm() {
         <div>
           <label
             htmlFor="author"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-gray-100"
           >
             Author *
           </label>
@@ -78,9 +78,11 @@ export function PostForm() {
             value={authorId}
             onChange={(e) => setAuthorId(e.target.value)}
             required
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-100"
           >
-            <option value="">Select author</option>
+            <option value="" className="text-gray-900 hover:text-gray-100">
+              Select author
+            </option>
             {usersData?.users?.map((user: User) => (
               <option key={user.id} value={user.id}>
                 {user.name || user.email}

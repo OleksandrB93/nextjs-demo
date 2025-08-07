@@ -27,13 +27,13 @@ export function UserForm() {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
+    <div className="bg-gray-900 p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">Create user</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-gray-100"
           >
             Email *
           </label>
@@ -49,7 +49,7 @@ export function UserForm() {
         <div>
           <label
             htmlFor="name"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-gray-100"
           >
             Name
           </label>
