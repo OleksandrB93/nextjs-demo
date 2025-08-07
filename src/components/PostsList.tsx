@@ -45,7 +45,7 @@ export function PostsList() {
 
   return (
     <div className="bg-gray-900 p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Posts</h2>
+      <h2 className="text-2xl font-bold mb-4 text-gray-100">Posts</h2>
       {data?.posts?.length === 0 ? (
         <p className="text-gray-500">No posts found</p>
       ) : (

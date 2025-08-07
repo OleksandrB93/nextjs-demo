@@ -12,7 +12,7 @@ export function UsersList() {
 
   return (
     <div className="bg-gray-900 p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Users</h2>
+      <h2 className="text-2xl font-bold mb-4 text-gray-100">Users</h2>
       {data?.users?.length === 0 ? (
         <p className="text-gray-500">No users found</p>
       ) : (

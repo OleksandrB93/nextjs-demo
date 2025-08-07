@@ -33,7 +33,7 @@ export function PostForm() {
 
   return (
     <div className="bg-gray-900 p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Create post</h2>
+      <h2 className="text-2xl font-bold mb-4 text-gray-100">Create post</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label
