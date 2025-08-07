@@ -12,8 +12,8 @@ export const CREATE_USER = gql`
 `;
 
 export const CREATE_POST = gql`
-  mutation CreatePost($title: String!, $content: String, $authorId: String!) {
-    createPost(title: $title, content: $content, authorId: $authorId) {
+  mutation CreatePost($title: String!, $content: String) {
+    createPost(title: $title, content: $content) {
       id
       title
       content
@@ -23,6 +23,7 @@ export const CREATE_POST = gql`
         id
         name
         email
+        role
       }
     }
   }

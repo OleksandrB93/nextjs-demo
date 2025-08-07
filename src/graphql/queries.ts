@@ -6,7 +6,29 @@ export const GET_USERS = gql`
       id
       email
       name
+      role
+      image
       createdAt
+      posts {
+        id
+        title
+        content
+        published
+      }
+    }
+  }
+`;
+
+export const GET_ALL_USERS = gql`
+  query GetAllUsers {
+    allUsers {
+      id
+      email
+      name
+      role
+      image
+      createdAt
+      updatedAt
       posts {
         id
         title
@@ -29,6 +51,43 @@ export const GET_POSTS = gql`
         id
         name
         email
+        role
+      }
+    }
+  }
+`;
+
+export const GET_MY_POSTS = gql`
+  query GetMyPosts {
+    myPosts {
+      id
+      title
+      content
+      published
+      createdAt
+      author {
+        id
+        name
+        email
+        role
+      }
+    }
+  }
+`;
+
+export const GET_ALL_POSTS = gql`
+  query GetAllPosts {
+    allPosts {
+      id
+      title
+      content
+      published
+      createdAt
+      author {
+        id
+        name
+        email
+        role
       }
     }
   }
@@ -40,6 +99,8 @@ export const GET_USER = gql`
       id
       email
       name
+      role
+      image
       createdAt
       posts {
         id
@@ -63,6 +124,7 @@ export const GET_POST = gql`
         id
         name
         email
+        role
       }
     }
   }

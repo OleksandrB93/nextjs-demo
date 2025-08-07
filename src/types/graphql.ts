@@ -1,7 +1,11 @@
+export type UserRole = "USER" | "MODERATOR" | "ADMIN";
+
 export interface User {
   id: string;
   email: string;
   name: string | null;
+  role: UserRole;
+  image: string | null;
   posts: Post[];
   createdAt: Date;
   updatedAt: Date;
@@ -26,7 +30,6 @@ export interface CreateUserInput {
 export interface CreatePostInput {
   title: string;
   content?: string;
-  authorId: string;
 }
 
 export interface UpdatePostInput {

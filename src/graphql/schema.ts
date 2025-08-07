@@ -1,10 +1,18 @@
 import { gql } from "graphql-tag";
 
 export const typeDefs = gql`
+  enum UserRole {
+    USER
+    MODERATOR
+    ADMIN
+  }
+
   type User {
     id: ID!
     email: String!
     name: String
+    role: UserRole!
+    image: String
     posts: [Post!]!
     createdAt: String!
     updatedAt: String!
@@ -23,14 +31,17 @@ export const typeDefs = gql`
 
   type Query {
     users: [User!]!
+    allUsers: [User!]!
     user(id: ID!): User
     posts: [Post!]!
+    myPosts: [Post!]!
+    allPosts: [Post!]!
     post(id: ID!): Post
   }
 
   type Mutation {
     createUser(email: String!, name: String): User!
-    createPost(title: String!, content: String, authorId: String!): Post!
+    createPost(title: String!, content: String): Post!
     updatePost(
       id: ID!
       title: String

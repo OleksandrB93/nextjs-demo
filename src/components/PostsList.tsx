@@ -1,11 +1,16 @@
 "use client";
 
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_POSTS } from "@/graphql/queries";
+import { GET_POSTS, GET_MY_POSTS, GET_ALL_POSTS } from "@/graphql/queries";
 import { UPDATE_POST, DELETE_POST } from "@/graphql/mutations";
 import { Post } from "@/types/graphql";
+import { useRole } from "@/hooks/useRole";
+import { RoleGuard } from "./RoleGuard";
 
 export function PostsList() {
+  const { isAdmin } = useRole();
+
+  // Use standard posts query - it will return appropriate posts based on role
   const { loading, error, data } = useQuery(GET_POSTS);
 
   const [updatePost] = useMutation(UPDATE_POST, {
@@ -27,7 +32,7 @@ export function PostsList() {
   };
 
   const handleDelete = async (id: string) => {
-    if (confirm("Ви впевнені, що хочете видалити цей пост?")) {
+    if (confirm("Do you really want to delete this post?")) {
       try {
         await deletePost({
           variables: { id },
@@ -41,14 +46,18 @@ export function PostsList() {
   if (loading) return <div className="text-center py-4">Loading posts...</div>;
   if (error) return <div className="text-red-600">Error: {error.message}</div>;
 
+  const posts = data?.posts || [];
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Posts</h2>
-      {data?.posts?.length === 0 ? (
+      <h2 className="text-2xl font-bold mb-4">
+        {isAdmin ? "All Posts (Admin View)" : "My Posts"}
+      </h2>
+      {posts?.length === 0 ? (
         <p className="text-gray-500">No posts found</p>
       ) : (
         <div className="space-y-4">
-          {data?.posts?.map((post: Post) => (
+          {posts?.map((post: Post) => (
             <div
               key={post.id}
               className="border border-gray-200 rounded-lg p-4"
