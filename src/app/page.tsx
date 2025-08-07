@@ -2,11 +2,13 @@ import { UserForm } from "@/components/UserForm";
 import { PostForm } from "@/components/PostForm";
 import { UsersList } from "@/components/UsersList";
 import { PostsList } from "@/components/PostsList";
+import { Header } from "@/components/Header";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gray-100">
-      <div className="container mx-auto px-4 py-8">
+      <Header />
+      <div className="container mx-auto px-4 py-8 pt-20">
         <header className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
             Next.js GraphQL Demo
