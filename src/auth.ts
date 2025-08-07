@@ -42,12 +42,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new Error("Invalid credentials.");
         }
 
-        // Return all user data including image (which might be from GitHub)
+        // Return all user data including image and dates
         return {
           id: user.id,
           email: user.email,
           name: user.name,
           image: user.image,
+          createdAt: user.createdAt.toISOString(),
+          updatedAt: user.updatedAt.toISOString(),
         };
       },
     }),
@@ -122,6 +124,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.image = user.image;
         token.name = user.name;
         token.email = user.email;
+        token.createdAt = user.createdAt;
+        token.updatedAt = user.updatedAt;
       }
       return token;
     },
@@ -131,6 +135,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.id = token.id as string;
         session.user.image = token.image as string;
         session.user.name = token.name as string;
+        session.user.createdAt = token.createdAt as string;
+        session.user.updatedAt = token.updatedAt as string;
       }
       return session;
     },

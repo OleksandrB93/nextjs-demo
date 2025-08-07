@@ -9,15 +9,7 @@ export function Header() {
         <a href="/" className="text-2xl font-bold text-indigo-700">
           Next.js GraphQL Demo
         </a>
-        <nav className="space-x-4">
-          <a
-            href="/"
-            className="text-gray-700 hover:text-indigo-600 font-medium"
-          >
-            Home
-          </a>
-          <UserProfile />
-        </nav>
+        <UserProfile />
       </div>
     </header>
   );

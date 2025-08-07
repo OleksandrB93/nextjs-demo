@@ -3,6 +3,7 @@ import { PostForm } from "@/components/PostForm";
 import { UsersList } from "@/components/UsersList";
 import { PostsList } from "@/components/PostsList";
 import { Header } from "@/components/Header";
+import { MainProfile } from "@/components/MainProfile";
 
 export default function Home() {
   return (
@@ -19,14 +20,14 @@ export default function Home() {
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Forms */}
           <div className="space-y-6">
-            <UserForm />
-            <PostForm />
+            {/* <UserForm /> */}
+
+            <MainProfile />
           </div>
 
-          {/* Lists */}
           <div className="space-y-6">
+            <PostForm />
             <UsersList />
             <PostsList />
           </div>
