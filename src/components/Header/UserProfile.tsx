@@ -19,8 +19,6 @@ export function UserProfile() {
     return null;
   }
 
-  console.log(session);
-
   return (
     <div className="flex items-center space-x-3">
       {session.user.image && (
