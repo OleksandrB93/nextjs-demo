@@ -6,10 +6,39 @@ import {
   EnvelopeIcon,
   UserIcon,
   ClockIcon,
+  ShieldCheckIcon,
 } from "@heroicons/react/24/outline";
+import { RoleGuard } from "./RoleGuard";
 
 export function MainProfile() {
   const { data: session, status } = useSession();
+
+  // Function to change user role (demo purposes)
+  const changeRole = async (newRole: string) => {
+    if (!session?.user?.id) return;
+
+    try {
+      const response = await fetch("/api/admin/change-role", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: session.user.id,
+          newRole: newRole,
+        }),
+      });
+
+      if (response.ok) {
+        // Refresh the page to show updated role
+        window.location.reload();
+      } else {
+        console.error("Failed to change role");
+      }
+    } catch (error) {
+      console.error("Error changing role:", error);
+    }
+  };
 
   // Format date function
   const formatDate = (dateString: string) => {
@@ -36,6 +65,31 @@ export function MainProfile() {
     } else {
       const years = Math.floor(diffDays / 365);
       return `${years} year${years > 1 ? "s" : ""} ago`;
+    }
+  };
+
+  // Get role display properties
+  const getRoleDisplay = (role?: string) => {
+    switch (role) {
+      case "ADMIN":
+        return {
+          text: "Administrator",
+          color: "bg-red-100 text-red-800",
+          iconColor: "text-red-600",
+        };
+      case "MODERATOR":
+        return {
+          text: "Moderator",
+          color: "bg-yellow-100 text-yellow-800",
+          iconColor: "text-yellow-600",
+        };
+      case "USER":
+      default:
+        return {
+          text: "User",
+          color: "bg-blue-100 text-blue-800",
+          iconColor: "text-blue-600",
+        };
     }
   };
 
@@ -108,13 +162,25 @@ export function MainProfile() {
           <h1 className="text-3xl font-bold text-white mb-2">
             {user.name || "Welcome User"}
           </h1>
-          <p className="text-blue-100 text-lg font-medium">{user.email}</p>
+          <p className="text-blue-100 text-lg font-medium mb-3">{user.email}</p>
+
+          {/* Role Badge */}
+          <div
+            className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold ${
+              getRoleDisplay(user.role).color
+            }`}
+          >
+            <ShieldCheckIcon
+              className={`w-4 h-4 mr-2 ${getRoleDisplay(user.role).iconColor}`}
+            />
+            {getRoleDisplay(user.role).text}
+          </div>
         </div>
       </div>
 
       {/* Profile Details */}
       <div className="p-8">
-        <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {/* User ID Card */}
           <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100">
             <div className="flex items-center mb-3">
@@ -131,18 +197,33 @@ export function MainProfile() {
             </p>
           </div>
 
-          {/* Email Card */}
+          {/* Role Card */}
           <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100">
             <div className="flex items-center mb-3">
-              <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                <EnvelopeIcon className="w-5 h-5 text-green-600" />
+              <div
+                className={`w-10 h-10 ${getRoleDisplay(user.role)
+                  .color.replace("text-", "bg-")
+                  .replace(
+                    "-800",
+                    "-100"
+                  )} rounded-lg flex items-center justify-center mr-3`}
+              >
+                <ShieldCheckIcon
+                  className={`w-5 h-5 ${getRoleDisplay(user.role).iconColor}`}
+                />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800">Email Address</h3>
-                <p className="text-sm text-gray-500">Primary contact</p>
+                <h3 className="font-semibold text-gray-800">User Role</h3>
+                <p className="text-sm text-gray-500">Account permissions</p>
               </div>
             </div>
-            <p className="text-sm text-gray-600 break-all">{user.email}</p>
+            <div
+              className={`inline-flex items-center px-3 py-2 rounded-lg text-sm font-semibold ${
+                getRoleDisplay(user.role).color
+              }`}
+            >
+              {getRoleDisplay(user.role).text}
+            </div>
           </div>
         </div>
 
@@ -209,6 +290,75 @@ export function MainProfile() {
           <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 text-center">
             <div className="text-2xl font-bold text-green-600 mb-1">✓</div>
             <div className="text-sm text-green-700">Verified</div>
+          </div>
+        </div>
+
+        {/* Admin Panel - Only visible to Admins */}
+        <RoleGuard allowedRoles={["ADMIN"]}>
+          <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-xl p-6 shadow-md border border-red-200 mt-6">
+            <h3 className="font-semibold text-red-800 mb-4 flex items-center">
+              <ShieldCheckIcon className="w-5 h-5 mr-2" />
+              🔒 Admin Panel
+            </h3>
+            <p className="text-sm text-red-700 mb-4">
+              This section is only visible to administrators.
+            </p>
+            <div className="bg-white rounded-lg p-4">
+              <p className="text-sm text-gray-600">
+                Admin-only features would go here, such as user management,
+                system settings, etc.
+              </p>
+            </div>
+          </div>
+        </RoleGuard>
+
+        {/* Moderator Panel - Only visible to Moderators and Admins */}
+        <RoleGuard allowedRoles={["MODERATOR", "ADMIN"]}>
+          <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-6 shadow-md border border-yellow-200 mt-6">
+            <h3 className="font-semibold text-yellow-800 mb-4 flex items-center">
+              <ShieldCheckIcon className="w-5 h-5 mr-2" />
+              🛡️ Moderator Panel
+            </h3>
+            <p className="text-sm text-yellow-700 mb-4">
+              This section is visible to moderators and administrators.
+            </p>
+            <div className="bg-white rounded-lg p-4">
+              <p className="text-sm text-gray-600">
+                Moderation tools would go here, such as content management, user
+                warnings, etc.
+              </p>
+            </div>
+          </div>
+        </RoleGuard>
+
+        {/* Demo: Role Change Buttons */}
+        <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100 mt-6">
+          <h3 className="font-semibold text-gray-800 mb-4">
+            🚀 Demo: Change Role
+          </h3>
+          <p className="text-sm text-gray-600 mb-4">
+            Click the buttons below to test different user roles and see how the
+            interface changes:
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <button
+              onClick={() => changeRole("USER")}
+              className="px-4 py-2 bg-blue-100 text-blue-800 rounded-lg text-sm font-medium hover:bg-blue-200 transition-colors"
+            >
+              Set as User
+            </button>
+            <button
+              onClick={() => changeRole("MODERATOR")}
+              className="px-4 py-2 bg-yellow-100 text-yellow-800 rounded-lg text-sm font-medium hover:bg-yellow-200 transition-colors"
+            >
+              Set as Moderator
+            </button>
+            <button
+              onClick={() => changeRole("ADMIN")}
+              className="px-4 py-2 bg-red-100 text-red-800 rounded-lg text-sm font-medium hover:bg-red-200 transition-colors"
+            >
+              Set as Admin
+            </button>
           </div>
         </div>
       </div>
