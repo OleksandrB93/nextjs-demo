@@ -39,15 +39,15 @@ export function PostsList() {
   };
 
   if (loading)
-    return <div className="text-center py-4">Завантаження постів...</div>;
+    return <div className="text-center py-4">Loading posts...</div>;
   if (error)
-    return <div className="text-red-600">Помилка: {error.message}</div>;
+    return <div className="text-red-600">Error: {error.message}</div>;
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Пости</h2>
+      <h2 className="text-2xl font-bold mb-4">Posts</h2>
       {data?.posts?.length === 0 ? (
-        <p className="text-gray-500">Постів не знайдено</p>
+        <p className="text-gray-500">No posts found</p>
       ) : (
         <div className="space-y-4">
           {data?.posts?.map((post: Post) => (
@@ -62,9 +62,9 @@ export function PostsList() {
                     <p className="text-gray-600 mt-2">{post.content}</p>
                   )}
                   <div className="mt-3 text-sm text-gray-500">
-                    <p>Автор: {post.author?.name || post.author?.email}</p>
+                    <p>Author: {post.author?.name || post.author?.email}</p>
                     <p>
-                      Створено:{" "}
+                      Created:{" "}
                       {new Date(post.createdAt).toLocaleDateString("uk-UA")}
                     </p>
                   </div>
@@ -80,13 +80,13 @@ export function PostsList() {
                         : "bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
                     }`}
                   >
-                    {post.published ? "Опубліковано" : "Чернетка"}
+                    {post.published ? "Published" : "Draft"}
                   </button>
                   <button
                     onClick={() => handleDelete(post.id)}
                     className="px-3 py-1 text-xs bg-red-100 text-red-800 rounded-full hover:bg-red-200"
                   >
-                    Видалити
+                    Delete
                   </button>
                 </div>
               </div>

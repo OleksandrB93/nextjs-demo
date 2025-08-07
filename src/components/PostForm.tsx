@@ -33,14 +33,14 @@ export function PostForm() {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Створити пост</h2>
+      <h2 className="text-2xl font-bold mb-4">Create post</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label
             htmlFor="title"
             className="block text-sm font-medium text-gray-700"
           >
-            Заголовок *
+            Title *
           </label>
           <input
             type="text"
@@ -56,7 +56,7 @@ export function PostForm() {
             htmlFor="content"
             className="block text-sm font-medium text-gray-700"
           >
-            Контент
+            Content
           </label>
           <textarea
             id="content"
@@ -71,7 +71,7 @@ export function PostForm() {
             htmlFor="author"
             className="block text-sm font-medium text-gray-700"
           >
-            Автор *
+            Author *
           </label>
           <select
             id="author"
@@ -80,7 +80,7 @@ export function PostForm() {
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           >
-            <option value="">Виберіть автора</option>
+            <option value="">Select author</option>
             {usersData?.users?.map((user: User) => (
               <option key={user.id} value={user.id}>
                 {user.name || user.email}
@@ -89,14 +89,14 @@ export function PostForm() {
           </select>
         </div>
         {error && (
-          <div className="text-red-600 text-sm">Помилка: {error.message}</div>
+          <div className="text-red-600 text-sm">Error: {error.message}</div>
         )}
         <button
           type="submit"
           disabled={loading || usersLoading}
           className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50"
         >
-          {loading ? "Створення..." : "Створити пост"}
+          {loading ? "Creating..." : "Create post"}
         </button>
       </form>
     </div>

@@ -12,18 +12,18 @@ export default function Home() {
             Next.js GraphQL Demo
           </h1>
           <p className="text-lg text-gray-600">
-            Додаток з GraphQL, Prisma та MongoDB
+            App with GraphQL, Prisma and MongoDB
           </p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Форми */}
+          {/* Forms */}
           <div className="space-y-6">
             <UserForm />
             <PostForm />
           </div>
 
-          {/* Списки */}
+          {/* Lists */}
           <div className="space-y-6">
             <UsersList />
             <PostsList />
@@ -32,7 +32,7 @@ export default function Home() {
 
         <footer className="mt-12 text-center text-gray-500">
           <p>
-            GraphQL Playground доступний за адресою:{" "}
+            GraphQL Playground available at:{" "}
             <a
               href="/api/graphql"
               className="text-indigo-600 hover:text-indigo-800 underline"

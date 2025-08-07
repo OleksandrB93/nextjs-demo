@@ -1,106 +1,106 @@
 # Next.js GraphQL Demo
 
-Додаток-приклад з використанням Next.js, GraphQL, Prisma та MongoDB.
+A sample application using Next.js, GraphQL, Prisma, and MongoDB.
 
-## Технології
+## Technologies
 
-- **Next.js 15** - React фреймворк
+- **Next.js 15** - React framework
 - **GraphQL** - API query language
-- **Apollo Client/Server** - GraphQL клієнт та сервер
-- **Prisma** - ORM для роботи з базою даних
-- **MongoDB** - NoSQL база даних
-- **TypeScript** - типізований JavaScript
-- **Tailwind CSS** - CSS фреймворк
+- **Apollo Client/Server** - GraphQL client and server
+- **Prisma** - ORM for database operations
+- **MongoDB** - NoSQL database
+- **TypeScript** - typed JavaScript
+- **Tailwind CSS** - CSS framework
 
-## Структура проекту
+## Project Structure
 
 ```
 src/
 ├── app/
 │   ├── api/graphql/route.ts    # GraphQL API endpoint
-│   ├── layout.tsx              # Root layout з Apollo Provider
-│   └── page.tsx                # Головна сторінка
+│   ├── layout.tsx              # Root layout with Apollo Provider
+│   └── page.tsx                # Main page
 ├── components/
 │   ├── ApolloWrapper.tsx       # Apollo Client wrapper
-│   ├── UserForm.tsx            # Форма створення користувача
-│   ├── PostForm.tsx            # Форма створення поста
-│   ├── UsersList.tsx           # Список користувачів
-│   └── PostsList.tsx           # Список постів
+│   ├── UserForm.tsx            # User creation form
+│   ├── PostForm.tsx            # Post creation form
+│   ├── UsersList.tsx           # Users list
+│   └── PostsList.tsx           # Posts list
 ├── graphql/
-│   ├── schema.ts               # GraphQL схема
-│   ├── resolvers.ts            # GraphQL резолвери
-│   ├── queries.ts              # GraphQL запити
-│   └── mutations.ts            # GraphQL мутації
+│   ├── schema.ts               # GraphQL schema
+│   ├── resolvers.ts            # GraphQL resolvers
+│   ├── queries.ts              # GraphQL queries
+│   └── mutations.ts            # GraphQL mutations
 └── lib/
-    ├── prisma.ts               # Prisma Client утиліта
-    └── apollo-client.ts        # Apollo Client конфігурація
+    ├── prisma.ts               # Prisma Client utility
+    └── apollo-client.ts        # Apollo Client configuration
 ```
 
-## Налаштування
+## Setup
 
-### 1. Встановлення залежностей
+### 1. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 2. Налаштування MongoDB
+### 2. MongoDB Setup
 
-Встановіть MongoDB локально або використовуйте MongoDB Atlas.
+Install MongoDB locally or use MongoDB Atlas.
 
-Для локальної MongoDB:
+For local MongoDB:
 
 ```bash
-# Запуск MongoDB (залежить від вашої ОС)
+# Start MongoDB (depends on your OS)
 mongod
 ```
 
-### 3. Налаштування змінних середовища
+### 3. Environment Variables
 
-Створіть файл `.env` в корені проекту:
+Create a `.env` file in the project root:
 
 ```env
 DATABASE_URL="mongodb://localhost:27017/nextjs-graphql-demo"
 ```
 
-### 4. Генерація Prisma Client
+### 4. Generate Prisma Client
 
 ```bash
 npx prisma generate
 ```
 
-### 5. Запуск додатку
+### 5. Run the Application
 
 ```bash
 npm run dev
 ```
 
-Додаток буде доступний за адресою: http://localhost:3000
+The application will be available at: http://localhost:3000
 
-## Функціональність
+## Features
 
-### Користувачі
+### Users
 
-- ✅ Створення користувачів
-- ✅ Перегляд списку користувачів
-- ✅ Відображення постів користувача
+- ✅ Create users
+- ✅ View users list
+- ✅ Display user posts
 
-### Пости
+### Posts
 
-- ✅ Створення постів
-- ✅ Перегляд списку постів
-- ✅ Оновлення статусу публікації
-- ✅ Видалення постів
+- ✅ Create posts
+- ✅ View posts list
+- ✅ Update publication status
+- ✅ Delete posts
 
 ### GraphQL
 
 - ✅ GraphQL API endpoint: `/api/graphql`
-- ✅ GraphQL Playground для тестування
-- ✅ Типізовані запити та мутації
+- ✅ GraphQL Playground for testing
+- ✅ Typed queries and mutations
 
-## GraphQL Схема
+## GraphQL Schema
 
-### Типи
+### Types
 
 ```graphql
 type User {
@@ -124,7 +124,7 @@ type Post {
 }
 ```
 
-### Запити
+### Queries
 
 ```graphql
 query GetUsers {
@@ -152,7 +152,7 @@ query GetPosts {
 }
 ```
 
-### Мутації
+### Mutations
 
 ```graphql
 mutation CreateUser($email: String!, $name: String) {
@@ -174,40 +174,40 @@ mutation CreatePost($title: String!, $content: String, $authorId: String!) {
 }
 ```
 
-## Розробка
+## Development
 
-### Додавання нових типів
+### Adding New Types
 
-1. Оновіть `prisma/schema.prisma`
-2. Додайте типи в `src/graphql/schema.ts`
-3. Створіть резолвери в `src/graphql/resolvers.ts`
-4. Генеруйте Prisma Client: `npx prisma generate`
+1. Update `prisma/schema.prisma`
+2. Add types in `src/graphql/schema.ts`
+3. Create resolvers in `src/graphql/resolvers.ts`
+4. Generate Prisma Client: `npx prisma generate`
 
-### Створення нових компонентів
+### Creating New Components
 
-1. Створіть компонент в `src/components/`
-2. Додайте GraphQL запити/мутації в `src/graphql/`
-3. Використовуйте `useQuery` та `useMutation` hooks
+1. Create a component in `src/components/`
+2. Add GraphQL queries/mutations in `src/graphql/`
+3. Use `useQuery` and `useMutation` hooks
 
-## Полезні команди
+## Useful Commands
 
 ```bash
-# Генерація Prisma Client
+# Generate Prisma Client
 npx prisma generate
 
-# Перегляд бази даних
+# View database
 npx prisma studio
 
-# Скидання бази даних
+# Reset database
 npx prisma db push --force-reset
 
-# Лінт коду
+# Lint code
 npm run lint
 
-# Білд проекту
+# Build project
 npm run build
 ```
 
-## Ліцензія
+## License
 
 MIT
