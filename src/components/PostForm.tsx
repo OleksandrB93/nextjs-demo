@@ -84,7 +84,7 @@ export function PostForm() {
   };
 
   return (
-    <div className="bg-background px-6 rounded-lg shadow-md border border-border">
+    <div className="bg-background/60 px-6 rounded-lg shadow-md border border-border backdrop-blur-sm">
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
           <AccordionTrigger>

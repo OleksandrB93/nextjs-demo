@@ -130,9 +130,9 @@ export function MainProfile() {
   const { user } = session;
 
   return (
-    <div className="max-w-2xl mx-auto bg-background border border-border rounded-2xl shadow-xl overflow-hidden">
+    <div className="max-w-2xl mx-auto bg-background/60 border border-border rounded-2xl shadow-xl overflow-hidden backdrop-blur-sm">
       {/* Header with gradient background */}
-      <div className="bg-primary px-8 py-12">
+      <div className="bg-background/60 px-8 py-12">
         <div className="flex flex-col items-center text-center">
           {/* Profile Image */}
           <div className="relative mb-6">
@@ -152,7 +152,7 @@ export function MainProfile() {
                 </div>
               )}
             </div>
-            <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+            <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-300 rounded-full border-4 border-white flex items-center justify-center">
               <div className="w-2 h-2 bg-white rounded-full"></div>
             </div>
           </div>
@@ -167,7 +167,7 @@ export function MainProfile() {
 
           {/* Role Badge */}
           <div
-            className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold ${
+            className={`inline-flex items-center px-4 py-2 rounded-full text-[2] font-semibold ${
               getRoleDisplay(user.role).color
             }`}
           >
@@ -183,7 +183,7 @@ export function MainProfile() {
       <div className="p-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {/* User ID Card */}
-          <div className="bg-background rounded-xl p-6 shadow-md border border-border">
+          <div className="bg-background/60 rounded-xl p-6 shadow-md border border-border backdrop-blur-sm">
             <div className="flex items-center mb-3">
               <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
                 <UserIcon className="w-5 h-5 text-blue-600" />
@@ -199,7 +199,7 @@ export function MainProfile() {
           </div>
 
           {/* Role Card */}
-          <div className="bg-background rounded-xl p-6 shadow-md border border-border">
+          <div className="bg-background/60 rounded-xl p-6 shadow-md border border-border backdrop-blur-sm">
             <div className="flex items-center mb-3">
               <div
                 className={`w-10 h-10 ${getRoleDisplay(user.role)
@@ -229,7 +229,7 @@ export function MainProfile() {
         </div>
 
         {/* Account Information */}
-        <div className="bg-background rounded-xl p-6 shadow-md border border-border">
+        <div className="bg-background/60 rounded-xl p-6 shadow-md border border-border backdrop-blur-sm">
           <h3 className="font-semibold text-foreground mb-4 flex items-center">
             <CalendarIcon className="w-5 h-5 text-purple-600 mr-2" />
             Account Information
@@ -268,12 +268,12 @@ export function MainProfile() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
+          <div className="bg-background/60 rounded-xl p-4 text-center">
             <div className="text-2xl font-bold text-blue-600 mb-1">1</div>
             <div className="text-sm text-blue-700">Active Sessions</div>
           </div>
 
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 text-center">
+          <div className="bg-background/60 rounded-xl p-4 text-center">
             <div className="text-2xl font-bold text-purple-600 mb-1">
               {user.createdAt
                 ? Math.max(
@@ -288,7 +288,7 @@ export function MainProfile() {
             <div className="text-sm text-purple-700">Months Active</div>
           </div>
 
-          <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 text-center">
+          <div className="bg-background/60 rounded-xl p-4 text-center">
             <div className="text-2xl font-bold text-green-600 mb-1">✓</div>
             <div className="text-sm text-green-700">Verified</div>
           </div>
@@ -296,7 +296,7 @@ export function MainProfile() {
 
         {/* Admin Panel - Only visible to Admins */}
         <RoleGuard allowedRoles={["ADMIN"]}>
-          <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-xl p-6 shadow-md border border-red-200 mt-6">
+          <div className="bg-background/60 rounded-xl p-6 shadow-md border border-red-200 mt-6">
             <h3 className="font-semibold text-red-800 mb-4 flex items-center">
               <ShieldCheckIcon className="w-5 h-5 mr-2" />
               🔒 Admin Panel
@@ -315,7 +315,7 @@ export function MainProfile() {
 
         {/* Moderator Panel - Only visible to Moderators and Admins */}
         <RoleGuard allowedRoles={["MODERATOR", "ADMIN"]}>
-          <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-6 shadow-md border border-yellow-200 mt-6">
+          <div className="bg-background/60 rounded-xl p-6 shadow-md border border-yellow-200 mt-6">
             <h3 className="font-semibold text-yellow-800 mb-4 flex items-center">
               <ShieldCheckIcon className="w-5 h-5 mr-2" />
               🛡️ Moderator Panel
@@ -333,7 +333,7 @@ export function MainProfile() {
         </RoleGuard>
 
         {/* Demo: Role Change Buttons */}
-        <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100 mt-6">
+        <div className="bg-background/60 rounded-xl p-6 shadow-md border border-gray-100 mt-6">
           <h3 className="font-semibold text-gray-800 mb-4">
             🚀 Demo: Change Role
           </h3>

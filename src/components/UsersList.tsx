@@ -3,7 +3,6 @@
 import { useQuery } from "@apollo/client";
 import { GET_ALL_USERS } from "@/graphql/queries";
 import { User, Post } from "@/types/graphql";
-import { useRole } from "@/hooks/useRole";
 import { RoleGuard } from "./RoleGuard";
 
 export function UsersList() {
@@ -43,17 +42,14 @@ function AdminUsersList() {
   };
 
   return (
-    <div className="bg-background p-6 rounded-lg shadow-md border border-border">
+    <div className="bg-background/60 p-6 rounded-lg shadow-md border border-border backdrop-blur-sm">
       <h2 className="text-2xl font-bold mb-4">All Users (Admin View)</h2>
       {data?.allUsers?.length === 0 ? (
         <p className="text-muted-foreground">No users found</p>
       ) : (
         <div className="space-y-4">
           {data?.allUsers?.map((user: User) => (
-            <div
-              key={user.id}
-              className="border border-border rounded-lg p-4"
-            >
+            <div key={user.id} className="border border-border rounded-lg p-4">
               <div className="flex justify-between items-start">
                 <div className="flex items-start space-x-3">
                   {user.image && (

@@ -49,7 +49,7 @@ export function PostsList() {
   const posts = data?.posts || [];
 
   return (
-    <div className="bg-background p-6 rounded-lg shadow-md border border-border">
+    <div className="bg-background/60 p-6 rounded-lg shadow-md border border-border backdrop-blur-sm">
       <h2 className="text-2xl font-bold mb-4">
         {isAdmin ? "All Posts (Admin View)" : "My Posts"}
       </h2>
