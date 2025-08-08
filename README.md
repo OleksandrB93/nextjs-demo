@@ -93,6 +93,11 @@ NEXTAUTH_URL="https://your-domain.com"
 OPENAI_API_KEY="your_openai_api_key"
 ```
 
+**For Vercel deployment:**
+
+- `NEXTAUTH_URL` is automatically detected from `VERCEL_URL` environment variable
+- If you have a custom domain, set `NEXTAUTH_URL` to your custom domain URL
+
 ### Build Process
 
 The build process automatically generates the Prisma Client:

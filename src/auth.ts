@@ -3,12 +3,16 @@ import GitHub from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./lib/prisma";
+import { getAuthConfig } from "./lib/auth-config";
+
+const { nextAuthUrl } = getAuthConfig();
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt",
   },
+  trustHost: true,
   providers: [
     Credentials({
       credentials: {
@@ -154,10 +158,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
     async redirect({ url, baseUrl }) {
-      // After successful authentication, redirect to home page
-      if (url.startsWith("/")) return `${baseUrl}${url}`;
-      else if (new URL(url).origin === baseUrl) return url;
-      return baseUrl; // Redirect to home page
+      // Handle redirects properly for both local and production
+      const { nextAuthUrl } = getAuthConfig();
+      const actualBaseUrl = nextAuthUrl || baseUrl;
+
+      if (url.startsWith("/")) {
+        return `${actualBaseUrl}${url}`;
+      } else if (url.startsWith(actualBaseUrl)) {
+        return url;
+      }
+      return actualBaseUrl;
     },
   },
 });

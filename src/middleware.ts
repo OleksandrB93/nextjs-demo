@@ -7,6 +7,6 @@ export const config = {
     "/dashboard/:path*",
     "/profile/:path*",
     // Main page also protected
-    "/((?!api|auth|_next/static|_next/image|favicon.ico|signin|signup).*)",
+    "/((?!api|auth|_next/static|_next/image|favicon.ico|signin|signup|.*\\.).*)",
   ],
 };
