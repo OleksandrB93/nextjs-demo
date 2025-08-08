@@ -31,7 +31,7 @@ export default function SignUpPage() {
         const data = await response.json();
         setError(data.error || "Registration failed");
       }
-    } catch (error) {
+    } catch {
       setError("Something went wrong");
     } finally {
       setLoading(false);

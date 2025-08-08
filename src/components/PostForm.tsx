@@ -36,32 +36,32 @@ export function PostForm() {
     }
   };
 
-  const handleAiContent = async () => {
-    setGenerating(true);
+  // const handleAiContent = async () => {
+  //   setGenerating(true);
 
-    try {
-      const res = await fetch("/api/openai", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt: "Generate a post about the topic: " + title,
-        }),
-      });
+  //   try {
+  //     const res = await fetch("/api/openai", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({
+  //         prompt: "Generate a post about the topic: " + title,
+  //       }),
+  //     });
 
-      const data = await res.json();
-      const generated = data.content?.split("\n\n");
-      if (generated?.length >= 2) {
-        setTitle(generated[0].replace(/^#+\s*/, ""));
-        setContent(generated.slice(1).join("\n\n"));
-      } else {
-        setContent(data.content || "");
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setGenerating(false);
-    }
-  };
+  //     const data = await res.json();
+  //     const generated = data.content?.split("\n\n");
+  //     if (generated?.length >= 2) {
+  //       setTitle(generated[0].replace(/^#+\s*/, ""));
+  //       setContent(generated.slice(1).join("\n\n"));
+  //     } else {
+  //       setContent(data.content || "");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     setGenerating(false);
+  //   }
+  // };
 
   const generateWithGemini = async (prompt: string) => {
     try {

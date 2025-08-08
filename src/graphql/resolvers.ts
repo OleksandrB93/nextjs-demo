@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
+// UserRole is used in type checking, so we keep the import but mark it as used
 import { UserRole } from "@prisma/client";
 
 // Helper function to get current user from session
@@ -125,7 +126,7 @@ export const resolvers = {
     ) => {
       return await prisma.user.update({
         where: { id: id },
-        data: { role: role as any },
+        data: { role: role as UserRole },
       });
     },
     createPost: async (

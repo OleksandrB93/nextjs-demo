@@ -3,9 +3,7 @@
 import { useSession } from "next-auth/react";
 import {
   CalendarIcon,
-  EnvelopeIcon,
   UserIcon,
-  ClockIcon,
   ShieldCheckIcon,
 } from "@heroicons/react/24/outline";
 import { RoleGuard } from "./RoleGuard";
@@ -190,7 +188,9 @@ export function MainProfile() {
               </div>
               <div>
                 <h3 className="font-semibold text-foreground">User ID</h3>
-                <p className="text-sm text-muted-foreground">Unique identifier</p>
+                <p className="text-sm text-muted-foreground">
+                  Unique identifier
+                </p>
               </div>
             </div>
             <p className="text-sm font-mono text-muted-foreground bg-gray-50 px-3 py-2 rounded-lg">
@@ -215,7 +215,9 @@ export function MainProfile() {
               </div>
               <div>
                 <h3 className="font-semibold text-foreground">User Role</h3>
-                <p className="text-sm text-muted-foreground">Account permissions</p>
+                <p className="text-sm text-muted-foreground">
+                  Account permissions
+                </p>
               </div>
             </div>
             <div

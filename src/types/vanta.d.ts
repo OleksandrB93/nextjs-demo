@@ -1,7 +1,7 @@
 declare global {
   interface Window {
     VANTA?: {
-      BIRDS?: (opts: any) => any;
+      BIRDS?: (opts: Record<string, unknown>) => { destroy: () => void };
     };
   }
 }

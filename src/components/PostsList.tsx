@@ -1,11 +1,10 @@
 "use client";
 
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_POSTS, GET_MY_POSTS, GET_ALL_POSTS } from "@/graphql/queries";
+import { GET_POSTS } from "@/graphql/queries";
 import { UPDATE_POST, DELETE_POST } from "@/graphql/mutations";
 import { Post } from "@/types/graphql";
 import { useRole } from "@/hooks/useRole";
-import { RoleGuard } from "./RoleGuard";
 
 export function PostsList() {
   const { isAdmin } = useRole();
@@ -58,10 +57,7 @@ export function PostsList() {
       ) : (
         <div className="space-y-4">
           {posts?.map((post: Post) => (
-            <div
-              key={post.id}
-              className="border border-border rounded-lg p-4"
-            >
+            <div key={post.id} className="border border-border rounded-lg p-4">
               <div className="flex justify-between items-start">
                 <div className="flex-1">
                   <h3 className="font-semibold text-lg">{post.title}</h3>

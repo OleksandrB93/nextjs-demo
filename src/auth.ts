@@ -32,9 +32,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         // Verify password
-        const bcrypt = require("bcrypt");
-        const isValid = await bcrypt.compare(
-          credentials.password,
+        const { verifyPassword } = await import("@/utils/password");
+        const isValid = await verifyPassword(
+          credentials.password as string,
           user.password
         );
 
@@ -64,7 +64,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // Return true if user is authorized
       return !!auth;
     },
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account }) {
       // Handle GitHub account linking
       if (account?.provider === "github" && user.email) {
         try {
@@ -118,7 +118,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true;
     },
-    async jwt({ token, user, session, trigger }) {
+    async jwt({ token, user, trigger }) {
       // Save user info to token when signing in
       if (user) {
         token.id = user.id;
