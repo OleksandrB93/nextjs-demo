@@ -299,13 +299,15 @@ export function MainProfile() {
         {/* Admin Panel - Only visible to Admins */}
         <RoleGuard allowedRoles={["ADMIN"]}>
           <div className="bg-background/60 rounded-xl p-6 shadow-md border border-red-200 mt-6">
-            <h3 className="font-semibold text-red-800 mb-4 flex items-center">
-              <ShieldCheckIcon className="w-5 h-5 mr-2" />
-              🔒 Admin Panel
-            </h3>
-            <p className="text-sm text-red-700 mb-4">
-              This section is only visible to administrators.
-            </p>
+            <div className="flex flex-col items-start bg-rose-200 p-4 rounded-lg mb-4">
+              <h3 className="font-semibold text-red-800 mb-4 flex items-center">
+                <ShieldCheckIcon className="w-5 h-5 mr-2" />
+                🔒 Admin Panel
+              </h3>
+              <p className="text-sm text-red-700 mb-4">
+                This section is only visible to administrators.
+              </p>
+            </div>
             <div className="bg-background rounded-lg p-4">
               <p className="text-sm text-muted-foreground">
                 Admin-only features would go here, such as user management,
@@ -318,13 +320,15 @@ export function MainProfile() {
         {/* Moderator Panel - Only visible to Moderators and Admins */}
         <RoleGuard allowedRoles={["MODERATOR", "ADMIN"]}>
           <div className="bg-background/60 rounded-xl p-6 shadow-md border border-yellow-200 mt-6">
-            <h3 className="font-semibold text-yellow-800 mb-4 flex items-center">
-              <ShieldCheckIcon className="w-5 h-5 mr-2" />
-              🛡️ Moderator Panel
-            </h3>
-            <p className="text-sm text-yellow-700 mb-4">
-              This section is visible to moderators and administrators.
-            </p>
+            <div className="flex flex-col items-start bg-yellow-100 p-4 rounded-lg mb-4">
+              <h3 className="font-semibold text-yellow-800 mb-4 flex items-center">
+                <ShieldCheckIcon className="w-5 h-5 mr-2" />
+                🛡️ Moderator Panel
+              </h3>
+              <p className="text-sm text-yellow-700 mb-4">
+                This section is visible to moderators and administrators.
+              </p>
+            </div>
             <div className="bg-white rounded-lg p-4">
               <p className="text-sm text-muted-foreground">
                 Moderation tools would go here, such as content management, user
@@ -336,13 +340,15 @@ export function MainProfile() {
 
         {/* Demo: Role Change Buttons */}
         <div className="bg-background/60 rounded-xl p-6 shadow-md border border-gray-100 mt-6">
-          <h3 className="font-semibold text-gray-800 mb-4">
-            🚀 Demo: Change Role
-          </h3>
-          <p className="text-sm text-muted-foreground mb-4">
-            Click the buttons below to test different user roles and see how the
-            interface changes:
-          </p>
+          <div className="flex flex-col items-start bg-sky-100 p-4 rounded-lg mb-4">
+            <h3 className="font-semibold text-gray-800 mb-4">
+              🚀 Demo: Change Role
+            </h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              Click the buttons below to test different user roles and see how
+              the interface changes:
+            </p>
+          </div>
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => changeRole("USER")}
