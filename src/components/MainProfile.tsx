@@ -11,7 +11,7 @@ import { CHANGE_USER_ROLE } from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
 
 export function MainProfile() {
-  const { data: session, status, update } = useSession();
+  const { data: session, status, update } = useSession({ required: true });
   const [changeUserRole] = useMutation(CHANGE_USER_ROLE);
 
   // Function to change user role (demo purposes)
