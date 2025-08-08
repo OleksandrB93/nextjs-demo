@@ -8,8 +8,13 @@ export function getAuthConfig() {
     if (isProduction && vercelUrl) {
       nextAuthUrl = `https://${vercelUrl}`;
     } else {
-      nextAuthUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
+      nextAuthUrl = "http://localhost:3000";
     }
+  }
+
+  // Ensure we always use the correct URL for production
+  if (isProduction && vercelUrl && !nextAuthUrl.includes(vercelUrl)) {
+    nextAuthUrl = `https://${vercelUrl}`;
   }
 
   return {

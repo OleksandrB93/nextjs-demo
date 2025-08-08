@@ -159,9 +159,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async redirect({ url, baseUrl }) {
       // Handle redirects properly for both local and production
-      const { nextAuthUrl } = getAuthConfig();
+      const { nextAuthUrl, isProduction } = getAuthConfig();
       const actualBaseUrl = nextAuthUrl || baseUrl;
 
+      // In production, always use the production URL
+      if (isProduction && !url.includes("localhost")) {
+        if (url.startsWith("/")) {
+          return `${actualBaseUrl}${url}`;
+        } else if (url.startsWith(actualBaseUrl)) {
+          return url;
+        }
+        return actualBaseUrl;
+      }
+
+      // For development
       if (url.startsWith("/")) {
         return `${actualBaseUrl}${url}`;
       } else if (url.startsWith(actualBaseUrl)) {
