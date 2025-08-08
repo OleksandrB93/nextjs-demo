@@ -77,6 +77,38 @@ npm run dev
 
 The application will be available at: http://localhost:3000
 
+## Deployment
+
+### Environment Variables for Production
+
+Make sure to set these environment variables in your deployment platform:
+
+```env
+DATABASE_URL="your_mongodb_connection_string"
+AUTH_GITHUB_ID="your_github_client_id"
+AUTH_GITHUB_SECRET="your_github_client_secret"
+AUTH_SECRET="your_auth_secret"
+NEXTAUTH_SECRET="your_nextauth_secret"
+NEXTAUTH_URL="https://your-domain.com"
+OPENAI_API_KEY="your_openai_api_key"
+```
+
+### Build Process
+
+The build process automatically generates the Prisma Client:
+
+```bash
+npm run build
+```
+
+This command runs `prisma generate` before building the Next.js application.
+
+### Common Deployment Issues
+
+1. **Prisma Client not found**: Make sure `prisma generate` runs during the build process
+2. **Database connection**: Verify your `DATABASE_URL` is correct and accessible
+3. **Environment variables**: Ensure all required environment variables are set in your deployment platform
+
 ## Features
 
 ### Users
