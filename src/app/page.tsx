@@ -25,7 +25,7 @@ export default function Home() {
       <div className="container mx-auto px-4 py-8 pt-24">
         {/* Tab switcher */}
         <div className="mb-8 flex justify-center">
-          <div className="bg-background/60 p-1 rounded-lg border border-border">
+          <div className="relative bg-background/60 p-1 rounded-lg border border-border">
             <Button
               variant={activeTab === "strapi" ? "default" : "ghost"}
               onClick={() => setActiveTab("strapi")}
@@ -33,6 +33,11 @@ export default function Home() {
             >
               Strapi CMS
             </Button>
+            {activeTab === "strapi" && (
+              <p className="absolute top-full left-1 text-nowrap text-xs text-muted-foreground">
+                Strapi works only with http://localhost:1337
+              </p>
+            )}
             <Button
               variant={activeTab === "graphql" ? "default" : "ghost"}
               onClick={() => setActiveTab("graphql")}
