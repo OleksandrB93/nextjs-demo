@@ -110,7 +110,7 @@ class StrapiClient {
   // Posts methods
   async getPosts(params?: {
     populate?: string[];
-    filters?: Record<string, any>;
+    filters?: Record<string, unknown>;
     sort?: string[];
     pagination?: { page?: number; pageSize?: number };
   }): Promise<StrapiResponse<StrapiPost[]>> {
@@ -185,7 +185,7 @@ class StrapiClient {
   }
 
   // Media upload
-  async uploadFile(file: File): Promise<any> {
+  async uploadFile(file: File): Promise<unknown> {
     const formData = new FormData();
     formData.append("files", file);
 
