@@ -42,7 +42,7 @@ export default function Home() {
               variant={activeTab === "graphql" ? "default" : "ghost"}
               onClick={() => setActiveTab("graphql")}
             >
-              GraphQL (Old)
+              GraphQ
             </Button>
           </div>
         </div>
