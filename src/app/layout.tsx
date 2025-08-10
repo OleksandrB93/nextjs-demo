@@ -7,6 +7,8 @@ import "./globals.css";
 import { ApolloWrapper } from "@/components/Providers/ApolloWrapper";
 import { NextAuthProvider } from "@/components/Providers/NextAuthProvider";
 import { VantaProvider } from "@/components/Providers/VantaProvider";
+import { UserTrackingProvider } from "@/components/Providers/UserTrackingProvider";
+import { Header } from "@/components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,8 +21,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Next.js GraphQL Demo",
-  description: "Next.js app with GraphQL, Prisma and MongoDB",
+  title: "Next.js GraphQL + Strapi",
+  description: "Next.js app with GraphQL, Prisma and MongoDB + Strapi",
 };
 
 export default function RootLayout({
@@ -51,11 +53,14 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <VantaProvider>
-                <div className="h-screen overflow-y-auto overflow-x-hidden">
-                  {children}
-                </div>
-              </VantaProvider>
+              <UserTrackingProvider>
+                <VantaProvider>
+                  <Header />
+                  <div className="h-screen overflow-y-auto overflow-x-hidden pt-24">
+                    {children}
+                  </div>
+                </VantaProvider>
+              </UserTrackingProvider>
             </ThemeProvider>
           </ApolloWrapper>
         </NextAuthProvider>

@@ -19,6 +19,12 @@ enum UserRole {
   MODERATOR
 }
 
+enum TrackingEventType {
+  CLICK
+  SCROLL
+  PAGEVIEW
+}
+
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   email     String   @unique
@@ -31,6 +37,9 @@ model User {
   updatedAt DateTime @updatedAt
   accounts  Account[]
   sessions  Session[]
+  
+  // Tracking relations
+  trackingEvents UserTrackingEvent[]
 }
 
 model Post {
@@ -75,4 +84,71 @@ model VerificationToken {
   token      String   @unique
   expires   DateTime
   @@unique([identifier, token])
+}
+
+// === USER TRACKING MODELS ===
+
+model UserTrackingEvent {
+  id        String             @id @default(auto()) @map("_id") @db.ObjectId
+  type      TrackingEventType
+  timestamp DateTime
+  data      Json              // Зберігаємо дані події в JSON форматі
+  userId    String?           @db.ObjectId // Опціонально - для авторизованих користувачів
+  user      User?             @relation(fields: [userId], references: [id])
+  sessionToken String?        // Використовуємо sessionToken з NextAuth Session
+  userAgent String?           // User agent браузера
+  ipAddress String?           // IP адреса користувача
+  browser   String?           // Назва браузера
+  browserVersion String?      // Версія браузера
+  os        String?           // Операційна система
+  osVersion String?           // Версія ОС
+  device    String?           // Тип пристрою (Desktop, Mobile, Tablet)
+  country   String?           // Країна
+  city      String?           // Місто
+  region    String?           // Регіон/область
+  timezone  String?           // Часова зона
+  createdAt DateTime          @default(now())
+
+  @@index([type])
+  @@index([userId])
+  @@index([sessionToken])
+  @@index([timestamp])
+  @@index([browser])
+  @@index([os])
+  @@index([country])
+  @@index([device])
+}
+
+model PageAnalytics {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  path          String
+  title         String?
+  viewCount     Int      @default(0)
+  uniqueViews   Int      @default(0)
+  avgTimeOnPage Float?   // Середній час на сторінці в секундах
+  bounceRate    Float?   // Відсоток відмов
+  lastVisited   DateTime @default(now())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([path])
+  @@index([viewCount])
+  @@index([lastVisited])
+}
+
+model ClickHeatmap {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  path        String
+  elementType String   // button, div, span, etc.
+  elementId   String?
+  elementClass String?
+  x           Int      // X координата кліку
+  y           Int      // Y координата кліку
+  clickCount  Int      @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([path])
+  @@index([elementType])
+  @@index([clickCount])
 }
