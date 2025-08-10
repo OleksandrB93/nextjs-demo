@@ -42,6 +42,7 @@ async function getCurrentUserOptional() {
 export const resolvers = {
   // Add resolver for UserTrackingEvent to properly serialize data
   UserTrackingEvent: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: (parent: any) => {
       // If data is object, serialize to JSON
       if (typeof parent.data === "object" && parent.data !== null) {
@@ -153,6 +154,7 @@ export const resolvers = {
         offset?: number;
       }
     ) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const where: any = {};
       if (userId) where.userId = userId;
       if (sessionToken) where.sessionToken = sessionToken;
@@ -181,6 +183,7 @@ export const resolvers = {
         offset?: number;
       }
     ) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const where: any = {};
       if (path) where.path = path;
 
@@ -215,6 +218,7 @@ export const resolvers = {
         dateTo?: string;
       }
     ) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const where: any = {};
       if (userId) where.userId = userId;
       if (dateFrom || dateTo) {
@@ -457,6 +461,7 @@ export const resolvers = {
     },
 
     // === TRACKING MUTATIONS ===
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     createTrackingEvent: async (_: unknown, { input }: { input: any }) => {
       const currentUser = await getCurrentUserOptional();
 

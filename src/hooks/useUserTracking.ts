@@ -32,6 +32,7 @@ export function useUserTracking() {
   /**
    * Track custom event with arbitrary data
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const trackCustomEvent = (eventType: string, data: Record<string, any>) => {
     context.trackEvent({
       type: "click", // Use base type but add custom data

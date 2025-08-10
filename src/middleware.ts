@@ -5,12 +5,13 @@ import requestIp from "request-ip";
 import { parseUserAgent } from "@/utils/user-agent";
 
 export default auth((req) => {
-  // Збираємо дані про користувача для трекінгу
+  // Get user data for tracking
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ip = requestIp.getClientIp(req as any);
   const ua = userAgent(req);
   const parsedUA = parseUserAgent(ua.ua || "");
 
-  // Створюємо response з заголовками
+  // Create response with headers
   const response = NextResponse.next();
 
   response.headers.set("x-user-ip", ip || "unknown");

@@ -49,7 +49,9 @@ function getIPViaWebRTC(): Promise<string | null> {
     try {
       const RTCPeerConnection =
         window.RTCPeerConnection ||
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (window as any).webkitRTCPeerConnection ||
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (window as any).mozRTCPeerConnection;
 
       if (!RTCPeerConnection) {

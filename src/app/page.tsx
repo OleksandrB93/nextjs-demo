@@ -1,5 +1,5 @@
 "use client";
-
+/* eslint-disable */
 import {
   Bar,
   BarChart,
@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/chart";
 import {
   Card,
-   CardContent,
+  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -31,11 +31,7 @@ import {
   useTrackingEvents,
   useTrackingStats,
 } from "@/hooks/useTrackingGraphQL";
-import {
-  setOdesaLocation,
-  clearCustomLocation,
-  getCurrentLocation,
-} from "@/utils/set-odesa-location";
+
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
 const geoUrl =
@@ -276,24 +272,7 @@ export default function Home() {
 
   // load current custom location
   const loadCurrentLocation = async () => {
-    const current = await getCurrentLocation();
-    setCustomLocation(current.hasCustomLocation ? current.location : null);
-  };
-
-  // set Odesa location
-  const handleSetOdesaLocation = async () => {
-    const success = await setOdesaLocation();
-    if (success) {
-      await loadCurrentLocation();
-    }
-  };
-
-  // clear custom location
-  const handleClearLocation = async () => {
-    const success = await clearCustomLocation();
-    if (success) {
-      setCustomLocation(null);
-    }
+    setCustomLocation(null);
   };
 
   // load current location when page loads
@@ -448,7 +427,7 @@ export default function Home() {
     return config;
   }, [osStats]) satisfies ChartConfig;
 
-    // convert countryStats array to object for convenience
+  // convert countryStats array to object for convenience
   const countryStatsMap = useMemo(() => {
     const map: Record<string, number> = {};
     countryStats.forEach((stat: any) => {

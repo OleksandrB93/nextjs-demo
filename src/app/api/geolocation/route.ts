@@ -8,6 +8,7 @@ async function getLocationFromIP(ip: string) {
     {
       name: "ipapi.co",
       url: `https://ipapi.co/${ip}/json/`,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       parser: (data: any) => ({
         country: data.country_name || "Unknown",
         city: data.city || "Unknown",
@@ -18,6 +19,7 @@ async function getLocationFromIP(ip: string) {
     {
       name: "ip-api.com",
       url: `http://ip-api.com/json/${ip}`,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       parser: (data: any) => ({
         country: data.country || "Unknown",
         city: data.city || "Unknown",
@@ -28,6 +30,7 @@ async function getLocationFromIP(ip: string) {
     {
       name: "ipinfo.io",
       url: `https://ipinfo.io/${ip}/json`,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       parser: (data: any) => ({
         country: data.country || "Unknown",
         city: data.city || "Unknown",
@@ -102,6 +105,7 @@ export async function POST(request: NextRequest) {
     }
 
     // try different ways to get IP
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let clientIp = requestIp.getClientIp(request as any);
 
     // additional attempts to get IP
