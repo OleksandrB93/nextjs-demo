@@ -4,11 +4,27 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import { useEffect, useState } from "react";
 
 import { SignOut } from "./SignOut";
 
 export function UserProfile() {
   const { data: session, status } = useSession();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Don't render anything until mounted to prevent hydration mismatch
+  if (!mounted) {
+    return (
+      <div className="flex items-center space-x-2">
+        <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse" />
+        <span className="text-gray-500 text-sm">Loading...</span>
+      </div>
+    );
+  }
 
   if (status === "loading") {
     return (
