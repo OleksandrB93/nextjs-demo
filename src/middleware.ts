@@ -4,6 +4,9 @@ import requestIp from "request-ip";
 import { parseUserAgent } from "@/utils/user-agent";
 
 export default auth((req) => {
+  const { nextUrl } = req;
+  const isLoggedIn = !!req.auth;
+
   // Get user data for tracking
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ip = requestIp.getClientIp(req as any);
@@ -19,6 +22,13 @@ export default auth((req) => {
   response.headers.set("x-user-os", parsedUA.os);
   response.headers.set("x-user-device", parsedUA.device);
 
+  // If user is not logged in and trying to access protected routes
+  if (!isLoggedIn) {
+    const signInUrl = new URL("/auth/signin", nextUrl.origin);
+    signInUrl.searchParams.set("callbackUrl", nextUrl.pathname);
+    return NextResponse.redirect(signInUrl);
+  }
+
   return response;
 });
 
@@ -28,7 +38,7 @@ export const config = {
     "/",
     "/dashboard/:path*",
     "/profile/:path*",
-    // Main page also protected
-    "/((?!api|auth|_next/static|_next/image|favicon.ico|signin|signup|.*\\.).*)",
+    // Exclude auth pages, API routes, and static files
+    "/((?!api|auth|_next/static|_next/image|favicon.ico|.*\\.).*)",
   ],
 };

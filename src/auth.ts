@@ -64,7 +64,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/auth/signin", // Custom sign in page
   },
   callbacks: {
-    authorized: async ({ auth }) => {
+    authorized: async ({ auth, request }) => {
+      const { pathname } = request.nextUrl;
+
+      // Allow access to auth pages without authentication
+      if (pathname.startsWith("/auth/")) {
+        return true;
+      }
+
       // Return true if user is authorized
       return !!auth;
     },
@@ -162,22 +169,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const { nextAuthUrl, isProduction } = getAuthConfig();
       const actualBaseUrl = nextAuthUrl || baseUrl;
 
-      // In production, always use the production URL
-      if (isProduction && !url.includes("localhost")) {
-        if (url.startsWith("/")) {
-          return `${actualBaseUrl}${url}`;
-        } else if (url.startsWith(actualBaseUrl)) {
-          return url;
-        }
+      // If the URL is relative, make it absolute
+      if (url.startsWith("/")) {
+        return `${actualBaseUrl}${url}`;
+      }
+
+      // If the URL is already absolute and matches our base URL, allow it
+      if (url.startsWith(actualBaseUrl)) {
+        return url;
+      }
+
+      // If the URL is external, redirect to home
+      if (url.startsWith("http")) {
         return actualBaseUrl;
       }
 
-      // For development
-      if (url.startsWith("/")) {
-        return `${actualBaseUrl}${url}`;
-      } else if (url.startsWith(actualBaseUrl)) {
-        return url;
-      }
+      // Default fallback
       return actualBaseUrl;
     },
   },

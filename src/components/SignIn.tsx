@@ -1,13 +1,17 @@
 import { signIn } from "@/auth";
+import { useSearchParams } from "next/navigation";
 
 export function SignIn() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
+
   return (
     <div className="space-y-6">
       {/* GitHub Login */}
       <form
         action={async () => {
           "use server";
-          await signIn("github", { redirectTo: "/" });
+          await signIn("github", { redirectTo: callbackUrl });
         }}
       >
         <button
@@ -35,7 +39,7 @@ export function SignIn() {
             await signIn("credentials", {
               email: formData.get("email"),
               password: formData.get("password"),
-              redirectTo: "/",
+              redirectTo: callbackUrl,
             });
           } catch (error) {
             // Error will be handled by NextAuth.js
