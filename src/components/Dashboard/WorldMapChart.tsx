@@ -132,38 +132,6 @@ const WorldMapChart = ({
               }}
             </Geographies>
 
-            {/* Current Location Marker */}
-            {currentLocation && (
-              <Marker
-                coordinates={[
-                  currentLocation.longitude,
-                  currentLocation.latitude,
-                ]}
-              >
-                <g
-                  transform="translate(-12, -24)"
-                  onMouseEnter={() => {
-                    setTooltip(
-                      `📍 Your location: ${
-                        currentLocation.city || "Unknown"
-                      }, ${currentLocation.country || "Unknown"}`
-                    );
-                  }}
-                  onMouseLeave={() => {
-                    setTooltip("");
-                  }}
-                >
-                  <circle
-                    r="8"
-                    fill="#FF5722"
-                    stroke="#fff"
-                    strokeWidth="2"
-                    className="animate-pulse"
-                  />
-                  <circle r="4" fill="#fff" />
-                </g>
-              </Marker>
-            )}
           </ComposableMap>
 
           {/* Simple Tooltip */}
@@ -207,12 +175,12 @@ const WorldMapChart = ({
             <div className="w-4 h-4 bg-blue-600 rounded"></div>
             <span>High activity</span>
           </div>
-          {currentLocation && (
+          {/* {currentLocation && (
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
               <span>Your location</span>
             </div>
-          )}
+          )} */}
         </div>
       </CardContent>
       <CardFooter className="text-sm text-muted-foreground">

@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 import { NextResponse, userAgent } from "next/server";
-import type { NextRequest } from "next/server";
 import requestIp from "request-ip";
 import { parseUserAgent } from "@/utils/user-agent";
 

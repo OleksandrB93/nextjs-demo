@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import {
   useTrackingEvents,
   useTrackingStats,
@@ -15,6 +16,8 @@ import EventsChart from "@/components/Dashboard/EventsShart";
 import CircleChart from "@/components/Dashboard/CircleChart";
 
 const Dashboard = () => {
+  const { data: session, status } = useSession({ required: true });
+
   const { events, loading, error, refetch } = useTrackingEvents(
     undefined, // userId - all users
     undefined, // sessionToken - all sessions
