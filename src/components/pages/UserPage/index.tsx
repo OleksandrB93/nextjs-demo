@@ -1,13 +1,11 @@
 "use client";
 
 import { useState } from "react";
-// import { UserForm } from "@/components/UserForm";
 import { PostForm } from "@/components/PostForm";
 import { UsersList } from "@/components/UsersList";
 import { PostsList } from "@/components/PostsList";
 import { StrapiPostForm } from "@/components/StrapiPostForm";
 import { StrapiPostsList } from "@/components/StrapiPostsList";
-import { Header } from "@/components/Header";
 import { MainProfile } from "@/components/MainProfile";
 import { Button } from "@/components/ui/button";
 
@@ -20,7 +18,7 @@ const UserPage = () => {
   };
   return (
     <div className="min-h-screen bg-transparent">
-      <div className="container mx-auto px-4 py-8 pt-24">
+      <div className="container mx-auto px-4">
         {/* Tab switcher */}
         <div className="mb-8 flex justify-center">
           <div className="relative bg-background/60 p-1 rounded-lg border border-border">
@@ -47,7 +45,6 @@ const UserPage = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-6">
-            {/* <UserForm /> */}
             <MainProfile />
           </div>
 

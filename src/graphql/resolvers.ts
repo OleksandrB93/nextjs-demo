@@ -475,25 +475,31 @@ export const resolvers = {
         parsedData = input.data;
       }
 
+      const createData: any = {
+        type: input.type,
+        timestamp: new Date(input.timestamp),
+        data: parsedData,
+        sessionToken: input.sessionToken,
+        userAgent: input.userAgent,
+        ipAddress: input.ipAddress,
+        browser: input.browser,
+        browserVersion: input.browserVersion,
+        os: input.os,
+        osVersion: input.osVersion,
+        device: input.device,
+        country: input.country,
+        city: input.city,
+        region: input.region,
+        timezone: input.timezone,
+      };
+
+      // Only add userId if user is authenticated
+      if (currentUser?.id) {
+        createData.userId = currentUser.id;
+      }
+
       return await prisma.userTrackingEvent.create({
-        data: {
-          type: input.type,
-          timestamp: new Date(input.timestamp),
-          data: parsedData,
-          userId: currentUser?.id,
-          sessionToken: input.sessionToken,
-          userAgent: input.userAgent,
-          ipAddress: input.ipAddress,
-          browser: input.browser,
-          browserVersion: input.browserVersion,
-          os: input.os,
-          osVersion: input.osVersion,
-          device: input.device,
-          country: input.country,
-          city: input.city,
-          region: input.region,
-          timezone: input.timezone,
-        },
+        data: createData,
         include: {
           user: true,
         },

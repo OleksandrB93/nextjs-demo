@@ -1,8 +1,11 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { SignOut } from "./SignOut";
 import Image from "next/image";
+import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
+
+import { SignOut } from "./SignOut";
 
 export function UserProfile() {
   const { data: session, status } = useSession();
@@ -23,17 +26,22 @@ export function UserProfile() {
   return (
     <div className="flex items-center space-x-3">
       {session.user.image && (
-        <Image
-          width={32}
-          height={32}
-          src={session.user.image}
-          alt={session.user.name || "User"}
-          className="w-8 h-8 rounded-full border border-border"
-        />
+        <Link href="/profile" prefetch={false}>
+          <Image
+            width={32}
+            height={32}
+            src={session.user.image}
+            alt={session.user.name || "User"}
+            className="w-8 h-8 rounded-full border border-border"
+          />
+        </Link>
       )}
-      <span className="text-foreground font-medium text-sm">
-        {session.user.name || session.user.email}
-      </span>
+      <Link href="/profile" prefetch={false}>
+        <span className="text-foreground font-medium text-sm">
+          {session.user.name || session.user.email}
+        </span>
+      </Link>
+      <Separator orientation="vertical" />
       <SignOut />
     </div>
   );
