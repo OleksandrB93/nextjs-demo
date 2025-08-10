@@ -1,4 +1,3 @@
-
 import {
   Card,
   CardContent,
@@ -25,10 +24,10 @@ const CityChart = ({
   return (
     <Card className="w-full">
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col md:flex-row md:items-center items-start justify-between">
           <div>
-            <CardTitle>🏙️ Top Cities by Activity</CardTitle>
-            <CardDescription>
+            <CardTitle className="">🏙️ Top Cities by Activity</CardTitle>
+            <CardDescription className="">
               Most active cities based on user interactions
             </CardDescription>
           </div>
@@ -38,7 +37,7 @@ const CityChart = ({
               placeholder="Search cities..."
               value={cityFilter}
               onChange={(e) => setCityFilter(e.target.value)}
-              className="px-3 py-1 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="px-3 py-1 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             />
             {cityFilter && (
               <button
@@ -56,7 +55,7 @@ const CityChart = ({
           <div className="space-y-3">
             {filteredCityData.map((city: any, index: number) => (
               <div key={city.city} className="flex items-center gap-4">
-                <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold">
                   {index + 1}
                 </div>
                 <div className="flex-1">
@@ -68,7 +67,7 @@ const CityChart = ({
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div
-                      className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+                      className="bg-primary h-2 rounded-full transition-all duration-300"
                       style={{
                         width: `${Math.min(
                           (city.total / (filteredCityData[0] as any).total) *

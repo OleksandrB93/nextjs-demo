@@ -46,10 +46,12 @@ const WorldMapChart = ({
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>🌍 Global User Activity Map</CardTitle>
-        <CardDescription>
-          Interactive world map showing user activity by country
-        </CardDescription>
+        <div className="flex flex-col md:flex-row md:items-center items-start justify-between">
+          <CardTitle>🌍 Global User Activity Map</CardTitle>
+          <CardDescription>
+            Interactive world map showing user activity by country
+          </CardDescription>
+        </div>
       </CardHeader>
       <CardContent className="relative">
         <div style={{ position: "relative" }}>
@@ -131,7 +133,6 @@ const WorldMapChart = ({
                 });
               }}
             </Geographies>
-
           </ComposableMap>
 
           {/* Simple Tooltip */}
