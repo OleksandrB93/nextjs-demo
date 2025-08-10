@@ -2,16 +2,23 @@ import { SignIn } from "@/components/SignIn";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 
+interface SearchParams {
+  error?: string;
+  callbackUrl?: string;
+  message?: string;
+}
+
 export default async function SignInPage({
   searchParams,
 }: {
-  searchParams: { error?: string; callbackUrl?: string; message?: string };
+  searchParams: Promise<SearchParams>;
 }) {
+  const params = await searchParams;
   const session = await auth();
 
   // If user is already authenticated, redirect to callback URL or home
   if (session) {
-    redirect(searchParams.callbackUrl || "/");
+    redirect(params.callbackUrl || "/");
   }
 
   return (
@@ -33,18 +40,18 @@ export default async function SignInPage({
         </div>
 
         {/* Success message */}
-        {searchParams.message && (
+        {params.message && (
           <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md">
-            {searchParams.message}
+            {params.message}
           </div>
         )}
 
         {/* Error message */}
-        {searchParams.error && (
+        {params.error && (
           <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-md">
-            {searchParams.error === "SessionRequired"
+            {params.error === "SessionRequired"
               ? "Please sign in to access this page."
-              : searchParams.error === "CredentialsSignin"
+              : params.error === "CredentialsSignin"
               ? "Invalid email or password."
               : "An error occurred during sign in."}
           </div>
