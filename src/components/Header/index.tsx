@@ -50,7 +50,7 @@ export function Header() {
     };
   }, []);
 
-  const headerClassName = `shadow fixed left-1/2 z-50 transition-all duration-200 -translate-x-1/2 ${
+  const headerClassName = `w-full shadow fixed left-1/2 z-50 transition-all duration-200 -translate-x-1/2 ${
     scrolled
       ? "bg-background/60 md:top-4 md:w-[calc(100%-46px)] md:rounded-lg md:px-30 backdrop-blur-sm border border-foreground/10"
       : "top-0 bg-background border-b"
