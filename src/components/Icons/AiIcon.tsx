@@ -1,4 +1,4 @@
-const AIIcon = ({ disabled }: { disabled: boolean }) => {
+const AIIcon = ({ disabled }: { disabled?: boolean }) => {
   return (
     <svg
       className={`w-6 h-6 ${disabled ? "text-foreground/50" : "text-primary"}`}
