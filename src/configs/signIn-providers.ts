@@ -10,7 +10,7 @@ export const providers = [
     id: "github",
     name: "GitHub",
     action: signInWithGitHub,
-    description: "Use on production",
+    description: "GitHub is working production",
     icon: "github",
     className:
       "bg-background w-full flex justify-center py-2 px-4 border border-foreground/10 rounded-md shadow-sm text-sm font-medium text-foreground bg-background hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer",
@@ -19,7 +19,7 @@ export const providers = [
     id: "linkedin",
     name: "LinkedIn",
     action: signInWithLinkedIn,
-    description: "Use on development",
+    description: "LinkedIn is working development",
     icon: "linkedin",
     className:
       "bg-blue-700 w-full flex justify-center py-2 px-4 border border-foreground/10 rounded-md shadow-sm text-sm font-medium text-foreground bg-background hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer",
@@ -28,7 +28,7 @@ export const providers = [
     id: "google",
     name: "Google",
     action: signInWithGoogle,
-    description: "Google is working on development and production",
+    description: "Google is working production",
     icon: "search",
     className:
       "bg-blue-700 w-full flex justify-center py-2 px-4 border border-foreground/10 rounded-md shadow-sm text-sm font-medium text-foreground bg-background hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer",
