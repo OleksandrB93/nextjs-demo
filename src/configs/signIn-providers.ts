@@ -28,7 +28,7 @@ export const providers = [
     id: "google",
     name: "Google",
     action: signInWithGoogle,
-    description: "Use on development",
+    description: "Google is working on development and production",
     icon: "search",
     className:
       "bg-blue-700 w-full flex justify-center py-2 px-4 border border-foreground/10 rounded-md shadow-sm text-sm font-medium text-foreground bg-background hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer",
