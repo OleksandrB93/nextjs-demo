@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+
 import { strapiClient, StrapiPost } from "@/lib/strapi";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
 interface StrapiPostsListProps {
   refreshTrigger?: number;

@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { PostForm } from "@/components/PostForm";
-import { UsersList } from "@/components/UsersList";
-import { PostsList } from "@/components/PostsList";
-import { StrapiPostForm } from "@/components/StrapiPostForm";
-import { StrapiPostsList } from "@/components/StrapiPostsList";
-import { MainProfile } from "@/components/MainProfile";
+
+import { PostsList } from "@/components/pages/UserPage/components/PostsList";
 import { Button } from "@/components/ui/button";
+import { PostForm } from "./components/PostForm";
+import { StrapiPostsList } from "./components/StrapiPostsList";
+import { MainProfile } from "./components/MainProfile";
+import { UsersList } from "./components/UsersList";
+import { StrapiPostForm } from "./components/StrapiPostForm";
 
 const UserPage = () => {
   const [refreshTrigger, setRefreshTrigger] = useState(0);

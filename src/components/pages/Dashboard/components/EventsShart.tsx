@@ -1,4 +1,10 @@
-import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "../ui/chart";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+} from "../../../ui/chart";
 import { BarChart, Bar, CartesianGrid, XAxis } from "recharts";
 import { trackingChartConfig } from "@/configs/chart-configs";
 
@@ -6,7 +12,7 @@ interface EventsChartProps {
   chartData: any;
 }
 
-const EventsChart = ({ chartData }: EventsChartProps) => {
+const EventsChart = ({ chartData }) => {
   return (
     <div className="rounded-lg bg-foreground/5 p-4 border">
       <h3 className="text-lg font-semibold mb-4">📊 Analytics Chart</h3>

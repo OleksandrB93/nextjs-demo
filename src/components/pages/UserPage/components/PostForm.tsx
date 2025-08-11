@@ -5,14 +5,14 @@ import { useMutation } from "@apollo/client";
 import { CREATE_POST } from "@/graphql/mutations";
 import { GET_POSTS } from "@/graphql/queries";
 
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import AIIcon from "./Icons/AiIcon";
+import AIIcon from "@/components/Icons/AiIcon";
 
 export function PostForm() {
   const [title, setTitle] = useState("");

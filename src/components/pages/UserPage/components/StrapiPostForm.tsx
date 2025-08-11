@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { strapiClient, CreatePostData } from "@/lib/strapi";
 
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import AIIcon from "./Icons/AiIcon";
+import AIIcon from "@/components/Icons/AiIcon";
 
 interface StrapiPostFormProps {
   onPostCreated?: () => void;

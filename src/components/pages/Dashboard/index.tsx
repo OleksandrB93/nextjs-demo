@@ -8,14 +8,14 @@ import {
 } from "@/hooks/useTrackingGraphQL";
 import { useChartData } from "@/hooks/useChartData";
 import { useCurrentLocation } from "@/hooks/useCurrentLocation";
-import { LocationDisplay } from "@/components/LocationDisplay";
+import { LocationDisplay } from "@/components/pages/Dashboard/components/LocationDisplay";
 
-import CityChart from "@/components/Dashboard/CityChart";
-import WorldMapChart from "@/components/Dashboard/WorldMapChart";
-import EventsChart from "@/components/Dashboard/EventsShart";
-import CircleChart from "@/components/Dashboard/CircleChart";
+import CityChart from "@/components/pages/Dashboard/components/CityChart";
+import WorldMapChart from "@/components/pages/Dashboard/components/WorldMapChart";
+import EventsChart from "@/components/pages/Dashboard/components/EventsShart";
+import CircleChart from "@/components/pages/Dashboard/components/CircleChart";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   const { data: session, status } = useSession({ required: true });
 
   const { events, loading, error, refetch } = useTrackingEvents(

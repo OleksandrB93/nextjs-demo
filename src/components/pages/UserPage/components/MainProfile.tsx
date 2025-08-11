@@ -6,9 +6,9 @@ import {
   UserIcon,
   ShieldCheckIcon,
 } from "@heroicons/react/24/outline";
-import { RoleGuard } from "./RoleGuard";
 import { CHANGE_USER_ROLE } from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
+import { RoleGuard } from "@/components/RoleGuard";
 
 export function MainProfile() {
   const { data: session, status, update } = useSession({ required: true });

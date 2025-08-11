@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ChartContainer, ChartTooltip } from "../ui/chart";
+import { ChartContainer, ChartTooltip } from "../../../ui/chart";
 import { TrendingUp } from "lucide-react";
 import { LabelList, RadialBar, RadialBarChart } from "recharts";
 
@@ -24,17 +24,17 @@ interface CircleChartProps {
 }
 
 const CircleChart = ({
-  title,
-  chartData,
-  stats,
-  chartConfig,
-  liveData,
-  total,
-  description,
-  dataKey,
-  labelKey,
-  valueLabel,
-}: CircleChartProps) => {
+      title,
+      chartData,
+      stats,
+      chartConfig,
+      liveData,
+      total,
+      description,
+      dataKey,
+      labelKey,
+      valueLabel,
+    }) => {
   return (
     <Card className="flex flex-col min-w-[300px]">
       <CardHeader className="items-center pb-0">

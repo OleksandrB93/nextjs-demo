@@ -1,9 +1,10 @@
 "use client";
 
 import { useQuery } from "@apollo/client";
+
 import { GET_ALL_USERS } from "@/graphql/queries";
 import { User, Post } from "@/types/graphql";
-import { RoleGuard } from "./RoleGuard";
+import { RoleGuard } from "@/components/RoleGuard";
 
 export function UsersList() {
   return (
