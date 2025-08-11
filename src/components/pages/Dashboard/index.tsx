@@ -15,7 +15,7 @@ import WorldMapChart from "@/components/pages/Dashboard/components/WorldMapChart
 import EventsChart from "@/components/pages/Dashboard/components/EventsShart";
 import CircleChart from "@/components/pages/Dashboard/components/CircleChart";
 
-const Dashboard = (props) => {
+const Dashboard = () => {
   const { data: session, status } = useSession({ required: true });
 
   const { events, loading, error, refetch } = useTrackingEvents(

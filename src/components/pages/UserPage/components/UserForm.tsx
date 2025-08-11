@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { CREATE_USER } from "@/graphql/mutations";
 import { GET_USERS } from "@/graphql/queries";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
 export function UserForm() {
   const [email, setEmail] = useState("");
