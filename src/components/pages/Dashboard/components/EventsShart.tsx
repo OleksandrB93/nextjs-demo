@@ -12,7 +12,7 @@ interface EventsChartProps {
   chartData: any;
 }
 
-const EventsChart = ({ chartData }) => {
+const EventsChart = ({ chartData }: EventsChartProps) => {
   return (
     <div className="rounded-lg bg-foreground/5 p-4 border">
       <h3 className="text-lg font-semibold mb-4">📊 Analytics Chart</h3>
