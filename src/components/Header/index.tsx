@@ -1,19 +1,16 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
+
 import { UserProfile } from "./UserProfile";
 import { ModeToggle } from "./ModeToggle";
-import Link from "next/link";
-import { Separator } from "@/components/ui/separator";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const OFFSET = 80;
 
   useEffect(() => {
-    setMounted(true);
-
     let scrollContainer: Element | null = null;
     let cleanup: (() => void) | null = null;
 
@@ -53,14 +50,11 @@ export function Header() {
     };
   }, []);
 
-  // Render the same content on server and client until mounted
-  const headerClassName = mounted
-    ? `shadow fixed left-1/2 z-50 transition-all duration-200 -translate-x-1/2 ${
-        scrolled
-          ? "bg-background/60 md:top-4 md:w-[calc(100%-46px)] md:rounded-lg md:px-30 backdrop-blur-sm border border-foreground/10"
-          : "top-0 w-full bg-background border-b"
-      }`
-    : "shadow fixed left-1/2 z-50 transition-all duration-200 -translate-x-1/2 top-0 w-full bg-background border-b";
+  const headerClassName = `shadow fixed left-1/2 z-50 transition-all duration-200 -translate-x-1/2 ${
+    scrolled
+      ? "bg-background/60 md:top-4 md:w-[calc(100%-46px)] md:rounded-lg md:px-30 backdrop-blur-sm border border-foreground/10"
+      : "top-0 bg-background border-b"
+  }`;
 
   return (
     <header className={headerClassName}>

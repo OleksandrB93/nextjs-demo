@@ -135,10 +135,7 @@ export function VantaProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <div
-      className="fixed w-full h-screen overflow-y-hidden overflow-x-hidden"
-      ref={containerRef}
-    >
+    <div className="fixed w-full h-screen overflow-y-hidden" ref={containerRef}>
       {children}
     </div>
   );
