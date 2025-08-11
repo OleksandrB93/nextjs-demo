@@ -34,7 +34,7 @@ const CircleChart = ({
       dataKey,
       labelKey,
       valueLabel,
-    }) => {
+    }: CircleChartProps) => {
   return (
     <Card className="flex flex-col min-w-[300px]">
       <CardHeader className="items-center pb-0">
