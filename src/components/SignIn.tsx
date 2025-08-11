@@ -1,7 +1,11 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { signInWithGitHub, signInWithCredentials } from "@/lib/auth-actions";
+import {
+  signInWithGitHub,
+  signInWithCredentials,
+  signInWithLinkedIn,
+} from "@/lib/auth-actions";
 
 export function SignIn() {
   const searchParams = useSearchParams();
@@ -17,10 +21,26 @@ export function SignIn() {
       >
         <button
           type="submit"
-          className="w-full flex justify-center py-2 px-4 border border-foreground/10 rounded-md shadow-sm text-sm font-medium text-foreground bg-background hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+          className="w-full flex justify-center py-2 px-4 border border-foreground/10 rounded-md shadow-sm text-sm font-medium text-foreground bg-background hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer"
         >
           Sign in with GitHub
         </button>
+        <span className="text-xs text-muted-foreground">Use on production</span>
+      </form>
+      <form
+        action={async () => {
+          await signInWithLinkedIn(callbackUrl);
+        }}
+      >
+        <button
+          type="submit"
+          className="w-full flex justify-center py-2 px-4 border border-foreground/10 rounded-md shadow-sm text-sm font-medium text-foreground bg-background hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer"
+        >
+          Sign in with LinkedIn
+        </button>
+        <span className="text-xs text-muted-foreground">
+          Use on development
+        </span>
       </form>
 
       <div className="relative">
@@ -70,10 +90,13 @@ export function SignIn() {
 
         <button
           type="submit"
-          className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-foreground bg-primary hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-foreground bg-primary hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer"
         >
           Sign in
         </button>
+        <span className="text-xs text-muted-foreground">
+          Credentials are working on development and production
+        </span>
       </form>
     </div>
   );

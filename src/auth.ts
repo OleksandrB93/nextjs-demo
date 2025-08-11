@@ -1,6 +1,8 @@
 import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
+import LinkedIn from "next-auth/providers/linkedin";
 import Credentials from "next-auth/providers/credentials";
+
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./lib/prisma";
 import { getAuthConfig } from "./lib/auth-config";
@@ -13,6 +15,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: "jwt",
   },
   trustHost: true,
+  debug: process.env.NODE_ENV === "development",
   providers: [
     Credentials({
       credentials: {
@@ -59,9 +62,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
     GitHub,
+    LinkedIn,
   ],
   pages: {
     signIn: "/auth/signin", // Custom sign in page
+    error: "/auth/signin", // Redirect errors to signin page
   },
   callbacks: {
     authorized: async ({ auth, request }) => {
@@ -75,9 +80,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // Return true if user is authorized
       return !!auth;
     },
-    async signIn({ user, account }) {
-      // Handle GitHub account linking
-      if (account?.provider === "github" && user.email) {
+    async signIn({ user, account, profile }) {
+      // Handle OAuth account linking for both GitHub and LinkedIn
+      if (account?.provider && user.email) {
         try {
           // Check if user already exists
           const existingUser = await prisma.user.findUnique({
@@ -86,13 +91,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           });
 
           if (existingUser) {
-            // Check if GitHub account is already linked
-            const hasGitHubAccount = existingUser.accounts.some(
-              (acc) => acc.provider === "github"
+            // Check if this OAuth provider is already linked
+            const hasProviderAccount = existingUser.accounts.some(
+              (acc) => acc.provider === account.provider
             );
 
-            if (!hasGitHubAccount) {
-              // Link GitHub account to existing user
+            if (!hasProviderAccount) {
+              // Link OAuth account to existing user
               await prisma.account.create({
                 data: {
                   userId: existingUser.id,
@@ -110,20 +115,63 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               });
             }
 
-            // Update user with GitHub image and name
-            await prisma.user.update({
-              where: { id: existingUser.id },
+            // Update user with OAuth provider image and name if not already set
+            const updateData: any = {};
+            if (user.image && !existingUser.image) {
+              updateData.image = user.image;
+            }
+            if (user.name && !existingUser.name) {
+              updateData.name = user.name;
+            }
+
+            if (Object.keys(updateData).length > 0) {
+              await prisma.user.update({
+                where: { id: existingUser.id },
+                data: updateData,
+              });
+            }
+
+            // Update the user object for JWT
+            user.id = existingUser.id;
+            user.role = existingUser.role;
+            user.createdAt = existingUser.createdAt.toISOString();
+            user.updatedAt = existingUser.updatedAt.toISOString();
+          } else {
+            // Create new user with OAuth account
+            const newUser = await prisma.user.create({
               data: {
+                email: user.email,
+                name: user.name,
                 image: user.image,
-                name: user.name || existingUser.name,
+                role: "USER", // Default role
+              },
+            });
+
+            // Create the OAuth account
+            await prisma.account.create({
+              data: {
+                userId: newUser.id,
+                type: account.type,
+                provider: account.provider,
+                providerAccountId: account.providerAccountId,
+                refresh_token: account.refresh_token,
+                access_token: account.access_token,
+                expires_at: account.expires_at,
+                token_type: account.token_type,
+                scope: account.scope,
+                id_token: account.id_token,
+                session_state: account.session_state as string,
               },
             });
 
             // Update the user object for JWT
-            user.id = existingUser.id;
+            user.id = newUser.id;
+            user.role = newUser.role;
+            user.createdAt = newUser.createdAt.toISOString();
+            user.updatedAt = newUser.updatedAt.toISOString();
           }
         } catch (error) {
-          console.error("Error linking GitHub account:", error);
+          console.error(`Error linking ${account.provider} account:`, error);
           return false;
         }
       }
@@ -186,6 +234,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       // Default fallback
       return actualBaseUrl;
+    },
+  },
+  events: {
+    async signIn({ user, account, profile, isNewUser }) {
+      console.log(
+        `User signed in: ${user.email} via ${
+          account?.provider || "credentials"
+        }`
+      );
+    },
+    async signOut(message) {
+      if ("token" in message) {
+        console.log(`User signed out: ${message.token?.email}`);
+      }
+    },
+    async linkAccount({ user, account, profile }) {
+      console.log(`Account linked: ${user.email} with ${account.provider}`);
     },
   },
 });
