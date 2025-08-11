@@ -1,6 +1,11 @@
-const AIIcon = () => {
+const AIIcon = ({ disabled }: { disabled: boolean }) => {
   return (
-    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+    <svg
+      className={`w-6 h-6 ${disabled ? "text-foreground/50" : "text-primary"}`}
+      viewBox="0 0 48 48"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+    >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"

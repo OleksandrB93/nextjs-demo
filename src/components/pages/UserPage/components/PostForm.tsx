@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { CREATE_POST } from "@/graphql/mutations";
 import { GET_POSTS } from "@/graphql/queries";
+import { motion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,11 +14,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import AIIcon from "@/components/Icons/AiIcon";
+import { cn } from "@/lib/utils";
 
 export function PostForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [generating, setGenerating] = useState(false);
+  const [isShowAiHint, setIsShowAiHint] = useState(false);
 
   const [createPost, { loading, error }] = useMutation(CREATE_POST, {
     refetchQueries: [{ query: GET_POSTS }],
@@ -87,8 +90,11 @@ export function PostForm() {
     <div className="bg-background/60 px-6 rounded-lg shadow-md border border-border backdrop-blur-sm">
       <Accordion type="single" collapsible>
         <AccordionItem value="item-1">
-          <AccordionTrigger>
+          <AccordionTrigger className="flex items-center gap-2 cursor-pointer">
             <h2 className="text-2xl font-bold">Create post</h2>
+            <p className="text-sm text-primary font-bold">
+              You can create a new post with AI or manually.
+            </p>
           </AccordionTrigger>
           <AccordionContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -99,21 +105,49 @@ export function PostForm() {
                 >
                   Title *
                 </label>
-                <Button
-                  type="button"
-                  onClick={() =>
-                    generateWithGemini(
-                      "Generate a post about the topic: " + title
-                    )
-                  }
-                  disabled={!title || generating}
-                  variant="secondary"
+                <div
+                  onMouseEnter={() => setIsShowAiHint(true)}
+                  onMouseLeave={() => setIsShowAiHint(false)}
                 >
-                  <div className="flex items-center gap-2">
-                    <AIIcon />{" "}
-                    {generating ? "Generating..." : "Generate with AI"}
-                  </div>
-                </Button>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={cn(
+                      !title || generating
+                        ? "animate-caret-blink"
+                        : "animate-none",
+                      "cursor-pointer absolute top-14 right-8 border border-border rounded-md px-4 py-1 flex items-center gap-2 w-[170px]"
+                    )}
+                    // animate={{
+                    //   scale: [1, 1.1, 1],
+                    //   rotate: [0, 10, -10, 0],
+                    // }}
+                    // transition={{
+                    //   duration: 2,
+                    //   repeat: Infinity,
+                    //   ease: "easeInOut",
+                    // }}
+                    type="button"
+                    onClick={() =>
+                      generateWithGemini(
+                        "Generate a post about the topic: " + title
+                      )
+                    }
+                    disabled={!title || generating}
+                  >
+                    <AIIcon disabled={!title || generating} />
+                    <p className="text-nowrap text-foreground">
+                      {generating ? "Generating..." : "Generate with AI"}
+                    </p>
+                  </motion.button>
+                  {isShowAiHint && !title && (
+                    <div className="absolute top-22 right-14 px-4 py-2 flex items-center gap-2 w-[170px]">
+                      <p className="text-nowrap text-destructive">
+                        Enter a title to generate a post.
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
               <div>
                 <label
@@ -123,6 +157,7 @@ export function PostForm() {
                   Title *
                 </label>
                 <input
+                  placeholder="Enter your title here... Or you can generate it with AI "
                   type="text"
                   id="title"
                   value={title}
@@ -140,6 +175,7 @@ export function PostForm() {
                 </label>
                 <textarea
                   id="content"
+                  placeholder="Enter your content here..."
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   rows={4}
