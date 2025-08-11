@@ -2,13 +2,17 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { UserProfile } from "./UserProfile";
 import { ModeToggle } from "./ModeToggle";
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const OFFSET = 80;
+
+  const [scrolled, setScrolled] = useState(false);
+
+  const pathname = usePathname();
 
   useEffect(() => {
     let scrollContainer: Element | null = null;
@@ -62,14 +66,18 @@ export function Header() {
         <div className="flex items-center gap-2">
           <Link
             href="/"
-            className="text-md md:text-2xl font-bold text-primary hover:text-primary/80 hover:underline transition-all duration-200"
+            className={`text-md md:text-2xl font-bold hover:text-primary/80 hover:underline transition-all duration-200 ${
+              pathname === "/" ? "text-primary" : "text-foreground/80"
+            }`}
           >
-            Next.js GraphQL
+            Blog GraphQL + Strapi
           </Link>
           <div className="h-8 w-px bg-foreground/40" />
           <Link
             href="/profile"
-            className="text-md md:text-2xl font-bold text-primary hover:text-primary/80 hover:underline transition-all duration-200"
+            className={`text-md md:text-2xl font-bold hover:text-primary/80 hover:underline transition-all duration-200 ${
+              pathname === "/profile" ? "text-primary" : "text-foreground/80"
+            }`}
           >
             Profile
           </Link>
