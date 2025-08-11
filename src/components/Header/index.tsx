@@ -70,7 +70,7 @@ export function Header() {
               pathname === "/" ? "text-primary" : "text-foreground/80"
             }`}
           >
-            Blog GraphQL + Strapi
+            Stats
           </Link>
           <div className="h-8 w-px bg-foreground/40" />
           <Link

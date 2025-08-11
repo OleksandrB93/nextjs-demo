@@ -1,4 +1,4 @@
-import { SignIn } from "@/components/pages/SignIn/SignIn";
+import { SignIn } from "@/components/pages/SignIn";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 

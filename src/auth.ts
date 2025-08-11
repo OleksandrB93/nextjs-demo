@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
 import LinkedIn from "next-auth/providers/linkedin";
 import Credentials from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
 
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./lib/prisma";
@@ -63,6 +64,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
     GitHub,
     LinkedIn,
+    Google,
   ],
   pages: {
     signIn: "/auth/signin", // Custom sign in page

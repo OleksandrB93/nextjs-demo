@@ -1,47 +1,43 @@
-"use client";
-
 import { useSearchParams } from "next/navigation";
-import {
-  signInWithGitHub,
-  signInWithCredentials,
-  signInWithLinkedIn,
-} from "@/lib/auth-actions";
+import { DynamicIcon } from "lucide-react/dynamic";
+import { motion } from "framer-motion";
 
-export function SignIn() {
+import { signInWithCredentials } from "@/lib/auth-actions";
+import { cn } from "@/lib/utils";
+import { providers } from "@/configs/signIn-providers";
+
+const SignInProviders = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   return (
-    <div className="space-y-6">
-      {/* GitHub Login */}
-      <form
-        action={async () => {
-          await signInWithGitHub(callbackUrl);
-        }}
-      >
-        <button
-          type="submit"
-          className="w-full flex justify-center py-2 px-4 border border-foreground/10 rounded-md shadow-sm text-sm font-medium text-foreground bg-background hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer"
+    <div>
+      {/* OAuth providers */}
+      {providers.map((provider) => (
+        <form
+          key={provider.id}
+          action={async () => {
+            await provider.action(callbackUrl);
+          }}
         >
-          Sign in with GitHub
-        </button>
-        <span className="text-xs text-muted-foreground">Use on production</span>
-      </form>
-      <form
-        action={async () => {
-          await signInWithLinkedIn(callbackUrl);
-        }}
-      >
-        <button
-          type="submit"
-          className="w-full flex justify-center py-2 px-4 border border-foreground/10 rounded-md shadow-sm text-sm font-medium text-foreground bg-background hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 cursor-pointer"
-        >
-          Sign in with LinkedIn
-        </button>
-        <span className="text-xs text-muted-foreground">
-          Use on development
-        </span>
-      </form>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            type="submit"
+            className={cn(provider.className, "relative")}
+          >
+            <DynamicIcon
+              name={provider.icon as any}
+              size={20}
+              className="absolute left-4 text-foreground"
+            />
+            Sign in with {provider.name}
+          </motion.button>
+          <span className="text-xs text-muted-foreground">
+            {provider.description}
+          </span>
+        </form>
+      ))}
 
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
@@ -88,16 +84,20 @@ export function SignIn() {
           />
         </div>
 
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           type="submit"
           className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-foreground bg-primary hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer"
         >
           Sign in
-        </button>
-        <span className="text-xs text-muted-foreground">
+        </motion.button>
+        <span className="text-xs text-muted-foreground -mt-4">
           Credentials are working on development and production
         </span>
       </form>
     </div>
   );
-}
+};
+
+export default SignInProviders;

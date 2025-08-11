@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/accordion";
 import AIIcon from "@/components/Icons/AiIcon";
 import { cn } from "@/lib/utils";
+import { Sparkles } from "lucide-react";
 
 export function PostForm() {
   const [title, setTitle] = useState("");
@@ -135,7 +136,13 @@ export function PostForm() {
                     }
                     disabled={!title || generating}
                   >
-                    <AIIcon disabled={!title || generating} />
+                    <Sparkles
+                      className={cn(
+                        !title || generating
+                          ? "text-foreground"
+                          : "text-primary"
+                      )}
+                    />
                     <p className="text-nowrap text-foreground">
                       {generating ? "Generating..." : "Generate with AI"}
                     </p>

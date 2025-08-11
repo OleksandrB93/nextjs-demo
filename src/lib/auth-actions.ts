@@ -13,6 +13,15 @@ export async function signInWithGitHub(callbackUrl: string) {
   }
 }
 
+export async function signInWithGoogle(callbackUrl: string) {
+  try {
+    await signIn("google", { redirectTo: callbackUrl });
+  } catch (error) {
+    console.error("Google sign in error:", error);
+    throw error;
+  }
+}
+
 export async function signInWithLinkedIn(callbackUrl: string) {
   try {
     await signIn("linkedin", { redirectTo: callbackUrl });
